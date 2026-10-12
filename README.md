@@ -2,7 +2,7 @@
 
 Interactive study workspace with formatted lecture notes and 3D spaced repetition flashcard decks, generated directly from Obsidian study materials.
 
-Hosted live on GitHub Pages.
+Hosted live at https://teachme-umber.vercel.app
 
 ## Site Structure
 
