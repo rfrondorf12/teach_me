@@ -92,12 +92,14 @@ h3 {
 /* Top Website Navigation Bar */
 header.site-navbar {
   width: 100%;
-  background-color: #fafbf8;
-  border-bottom: 2.5px solid var(--border-color);
+  background-color: rgba(250, 251, 248, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid rgba(46, 56, 46, 0.15);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(43, 51, 43, 0.05);
+  box-shadow: 0 4px 16px rgba(43, 51, 43, 0.04);
 }
 
 .navbar-container {
@@ -121,23 +123,27 @@ header.site-navbar {
 }
 
 .brand-badge {
-  background-color: var(--golden-chamomile);
+  background: transparent;
   color: var(--text-main);
-  border: 2.5px solid var(--border-color);
-  border-radius: 9999px;
-  padding: 6px 18px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  box-shadow: 2.5px 2.5px 0px var(--border-color);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-family: "dark-london", "ff-seria-sans", Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  box-shadow: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transform: rotate(-1deg);
-  transition: transform 0.2s ease;
+  gap: 0;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  line-height: 1;
 }
 
 .brand-badge:hover {
-  transform: rotate(0deg);
+  transform: translateY(-1px);
+  opacity: 0.8;
 }
 
 .nav-links-row {
