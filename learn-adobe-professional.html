@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adobe Certified Professional — Learn Mode</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wra7ena.css">
   <link rel="stylesheet" href="style.css">
   <style>
     .learn-container {
-      max-width: 780px;
+      max-width: 800px;
       margin: 0 auto;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "ff-seria-sans", system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       color: #1e293b;
     }
-    .tier-badge {
+    .round-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -23,9 +24,11 @@
       font-size: 0.85rem;
       border: 2px solid var(--border-color);
       box-shadow: 2px 2px 0 var(--border-color);
+      text-transform: uppercase;
     }
-    .t1-badge { background-color: var(--accent-yellow); color: #240404; }
-    .t2-badge { background-color: var(--accent-teal); color: #240404; }
+    .r1-badge { background-color: var(--accent-yellow); color: #240404; }
+    .r2-badge { background-color: var(--accent-orange); color: #240404; }
+    .r3-badge { background-color: var(--accent-teal); color: #240404; }
 
     .lm-progress-bar {
       width: 100%;
@@ -34,11 +37,11 @@
       border: 2px solid var(--border-color);
       border-radius: 9999px;
       overflow: hidden;
-      margin: 10px 0 18px 0;
+      margin: 10px 0 16px 0;
     }
     .lm-progress-fill {
       height: 100%;
-      background-color: var(--folder-ai-pink);
+      background-color: var(--accent-teal);
       width: 0%;
       transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -48,8 +51,13 @@
       border: 3px solid var(--border-color);
       border-radius: 14px;
       padding: 28px;
-      box-shadow: 6px 6px 0px var(--border-color);
+      box-shadow: 0 10px 24px rgba(36, 4, 4, 0.1), 5px 5px 0px var(--border-color);
       margin-top: 16px;
+      transform: rotate(-0.3deg);
+      transition: transform 0.2s ease;
+    }
+    .quiz-card:hover {
+      transform: rotate(0deg);
     }
 
     .mc-option-btn {
@@ -68,12 +76,12 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 3px 3px 0 var(--border-color);
+      box-shadow: 0 2px 6px rgba(36, 4, 4, 0.08), 3px 3px 0 var(--border-color);
     }
     .mc-option-btn:hover:not(:disabled) {
       background-color: #f8fafc;
       transform: translate(-1px, -1px);
-      box-shadow: 4px 4px 0 var(--border-color);
+      box-shadow: 0 4px 10px rgba(36, 4, 4, 0.12), 4px 4px 0 var(--border-color);
     }
     .mc-option-btn:disabled {
       cursor: default;
@@ -103,9 +111,22 @@
       flex-shrink: 0;
     }
 
+    .cloze-blank {
+      display: inline-block;
+      min-width: 120px;
+      padding: 2px 14px;
+      margin: 0 4px;
+      border-bottom: 3px solid var(--accent-red);
+      font-weight: 800;
+      color: var(--accent-red);
+      text-align: center;
+      background-color: rgba(232, 46, 37, 0.06);
+      border-radius: 4px;
+    }
+
     .feedback-banner {
       margin-top: 20px;
-      padding: 16px;
+      padding: 16px 20px;
       border-radius: 10px;
       border: 2px solid var(--border-color);
       font-size: 0.95rem;
@@ -159,85 +180,100 @@
   </header>
 
   <!-- Main Content View -->
-  <main style="padding: 24px 16px; min-height: 80vh;">
-    <div class="learn-container">
+  <main>
+    <div class="content-container learn-container">
 
-      <!-- Header actions bar -->
-      <section class="neo-box" style="margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <span class="pill-badge pill-art">Art</span>
-            <h2 style="margin-top: 6px; font-size: 1.45rem;">Adobe Certified Professional — Learn Mode</h2>
-          </div>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="flashcards-adobe-professional.html" class="btn">🎴 Flashcards</a>
-            <a href="note-adobe-professional.html" class="btn btn-primary">📝 Linked Note</a>
-          </div>
+      <!-- Breadcrumbs & Quick Nav -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span class="pill-badge pill-art">Art</span>
+          <h2 style="margin-top: 6px; font-size: 1.4rem;">Adobe Certified Professional — Learn Mode</h2>
         </div>
-
-        <!-- Progress Overview -->
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 2px dashed #cbd5e1;">
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 700; flex-wrap: wrap; gap: 8px;">
-            <span>Queue: <span id="queue-progress-text">1 / 1</span></span>
-            <span id="tier-pill-slot">
-              <span class="tier-badge t1-badge">Tier 1: Multiple Choice</span>
-            </span>
-            <span>Mastered: <span id="mastery-counter" style="color: #16a34a;">0</span> / <span id="total-cards-counter">0</span></span>
-          </div>
-          <div class="lm-progress-bar">
-            <div class="lm-progress-fill" id="lm-progress-fill"></div>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #64748b; flex-wrap: wrap; gap: 8px;">
-            <span>💡 2-Stage Cognitive Ladder: Recognition (Multiple Choice) → Free Active Recall (Side-by-Side)</span>
-            <button class="btn btn-sm" onclick="reshuffleQueue()" title="Shuffle the practice queue">🔀 Reshuffle Queue</button>
-          </div>
+        <div style="display: flex; gap: 8px;">
+          <a href="flashcards-adobe-professional.html" class="btn">🎴 Flashcards</a>
+          <a href="note-adobe-professional.html" class="btn btn-primary">📝 Notes</a>
         </div>
-      </section>
+      </div>
 
-      <!-- Active Quiz Card -->
+      <!-- Learn Mode Header Status -->
+      <div class="neo-box" style="padding: 18px 24px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: bold; flex-wrap: wrap; gap: 8px;">
+          <span>🎯 Deck Mastery: <strong id="mastery-counter">0</strong> / <strong id="total-cards-counter">0</strong> Mastered</span>
+          <span>⚡ <strong id="round-indicator-text">Round 1 • Question 1 of 7</strong></span>
+        </div>
+        <div class="lm-progress-bar">
+          <div class="lm-progress-fill" id="lm-progress-fill"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #555; flex-wrap: wrap; gap: 8px;">
+          <span>Rounds of 7 Questions · Round 1: Multiple Choice → Round 2: Fill in Blank → Round 3: Active Recall</span>
+          <button class="btn btn-sm" onclick="restartLearnSession()" title="Restart session from scratch">🔄 Reset Session</button>
+        </div>
+      </div>
+
+      <!-- Interactive Learn Container -->
       <div id="quiz-card-container" class="quiz-card">
+        
+        <!-- Header badge row -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+          <span id="roundBadgeEl" class="round-badge r1-badge">Round 1: Multiple Choice</span>
+          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b;" id="cardStageDesc">Cognitive Recognition</span>
+        </div>
 
         <!-- Stage 1: Multiple Choice (Recognition) -->
-        <div id="tier1Section">
+        <div id="stage1Section">
           <div style="font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
-            Stage 1 · Recognition (Multiple Choice)
+            Round 1 · Select the Correct Definition
           </div>
-          <h3 id="t1QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 20px; color: #0f172a;"></h3>
-          <div id="t1OptionsGrid" style="display: grid; gap: 12px;"></div>
-          <div id="t1FeedbackBox" class="feedback-banner" style="display: none;"></div>
+          <h3 id="s1QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 20px; color: #0f172a;"></h3>
+          <div id="s1OptionsGrid" style="display: grid; gap: 12px;"></div>
+          <div id="s1FeedbackBox" class="feedback-banner" style="display: none;"></div>
         </div>
 
-        <!-- Stage 2: Free Active Recall & Side-by-Side Assessment -->
-        <div id="tier2Section" style="display: none;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
-            Stage 2 · Free Active Recall (Cognitive Generation)
+        <!-- Stage 2: Fill in the Blank (Cued Recall) -->
+        <div id="stage2Section" style="display: none;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #d97706; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+            Round 2 · Fill in the Blank (Cued Recall)
           </div>
-          <h3 id="t2QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 12px; color: #0f172a;"></h3>
+          <h3 id="s2QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 14px; color: #0f172a;"></h3>
+          <div id="s2ClozeSentence" style="font-size: 1.05rem; padding: 18px; background: #faf5f1; border: 2px dashed var(--border-color); border-radius: 10px; margin-bottom: 18px; line-height: 1.6;"></div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="s2Input" placeholder="Type the missing term..." style="flex: 1; min-width: 240px; padding: 12px 16px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+            <button class="btn btn-primary" id="s2SubmitBtn" onclick="submitStage2Cloze()">Submit Answer</button>
+          </div>
+          <div id="s2FeedbackBox" class="feedback-banner" style="display: none;"></div>
+        </div>
+
+        <!-- Stage 3: Free Active Recall & Side-by-Side Comparison -->
+        <div id="stage3Section" style="display: none;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+            Round 3 · Complete Active Recall (Cognitive Generation)
+          </div>
+          <h3 id="s3QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 12px; color: #0f172a;"></h3>
           <p style="font-size: 0.9rem; color: #475569; margin-bottom: 14px;">
-            Explain this concept completely in your own words without looking at your notes. (Full keyboard freedom for spaces, returns, and punctuation):
+            Explain this concept completely in your own words without looking at your notes:
           </p>
-          <textarea id="t2RecallInput" rows="5" placeholder="Type your full recall explanation here..." style="width: 100%; padding: 14px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; line-height: 1.6; outline: none; margin-bottom: 16px; box-sizing: border-box;"></textarea>
+          <textarea id="s3RecallInput" rows="5" placeholder="Type your full recall explanation here..." style="width: 100%; padding: 14px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; line-height: 1.6; outline: none; margin-bottom: 16px; box-sizing: border-box;"></textarea>
           
-          <div id="t2ActionContainer">
-            <button class="btn btn-primary" id="t2VerifyBtn" onclick="verifyActiveRecall()" style="padding: 12px 24px; font-size: 1rem;">
+          <div id="s3ActionContainer">
+            <button class="btn btn-primary" id="s3VerifyBtn" onclick="verifyStage3Recall()" style="padding: 12px 24px; font-size: 1rem;">
               Compare Side-by-Side with Source Notes →
             </button>
           </div>
 
-          <!-- Comparison Display -->
-          <div id="t2SideBySideContainer" style="display: none;">
+          <!-- Side-by-side comparison box -->
+          <div id="s3SideBySideContainer" style="display: none;">
             <div class="side-by-side-grid">
               <div class="side-box">
                 <div style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 8px;">
                   ✍️ What You Typed:
                 </div>
-                <div id="t2UserResponse" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #0f172a;"></div>
+                <div id="s3UserResponse" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #0f172a;"></div>
               </div>
               <div class="side-box" style="background: #ffffff; border-color: #16a34a;">
                 <div style="font-size: 0.85rem; font-weight: 800; color: #16a34a; text-transform: uppercase; margin-bottom: 8px;">
-                  📖 Source Note Excerpt:
+                  📖 Source Note Definition:
                 </div>
-                <div id="t2SourceResponse" style="font-size: 0.95rem; line-height: 1.6; color: #0f172a;"></div>
+                <div id="s3SourceResponse" style="font-size: 0.95rem; line-height: 1.6; color: #0f172a;"></div>
               </div>
             </div>
 
@@ -245,14 +281,14 @@
             <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px; text-align: center;">
               <h4 style="font-size: 1.05rem; margin-bottom: 8px;">Self-Assessment: Did your answer capture the core concept?</h4>
               <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 18px;">
-                You decide your mastery. AI does not automatically judge or replace your critical evaluation.
+                You decide your mastery. If in progress, this card returns to Fill in the Blank until mastered.
               </p>
               <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-                <button class="btn" style="border-color: var(--accent-orange); background: #fffdf5;" onclick="resolveCardMastery(false)">
-                  ⏳ Still Learning (Re-queue for practice)
+                <button class="btn" style="border-color: var(--accent-orange); background: #fffdf5;" onclick="resolveStage3Mastery(false)">
+                  ⏳ In Progress (Return to Fill in the Blank)
                 </button>
-                <button class="btn btn-primary" style="background-color: #dcfce7; color: #14532d; border-color: #16a34a;" onclick="resolveCardMastery(true)">
-                  ✅ Mastered! (Advance to next card)
+                <button class="btn btn-primary" style="background-color: #dcfce7; color: #14532d; border-color: #16a34a;" onclick="resolveStage3Mastery(true)">
+                  ✅ Mastered! (Card Complete)
                 </button>
               </div>
             </div>
@@ -261,12 +297,24 @@
 
       </div>
 
-      <!-- Completion Banner (hidden until queue empty) -->
+      <!-- Round Complete Transition Card -->
+      <div id="roundTransitionCard" class="quiz-card" style="display: none; text-align: center; padding: 40px 24px;">
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">🌟</div>
+        <h2 id="roundTransitionTitle" style="font-size: 1.6rem; margin-bottom: 8px;">Round Complete!</h2>
+        <p id="roundTransitionSub" style="font-size: 1rem; color: #475569; max-width: 520px; margin: 0 auto 24px auto;">
+          You finished this round of 7 questions.
+        </p>
+        <button class="btn btn-primary" id="startNextRoundBtn" onclick="startNextRound()" style="padding: 12px 28px; font-size: 1rem;">
+          Start Next Round (7 Questions) →
+        </button>
+      </div>
+
+      <!-- Final Completion Banner -->
       <div id="completionBanner" class="quiz-card" style="display: none; text-align: center; padding: 48px 24px;">
         <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
         <h2 style="font-size: 1.8rem; margin-bottom: 12px;">All Cards Mastered in Learn Mode!</h2>
         <p style="font-size: 1.05rem; color: #475569; max-width: 540px; margin: 0 auto 28px auto;">
-          You successfully navigated through Multiple Choice recognition and typed active recall verification across the entire deck.
+          You successfully navigated through Multiple Choice, Fill in the Blank, and Active Recall across the entire deck!
         </p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
           <button class="btn btn-primary" onclick="restartLearnSession()">🔁 Practice Again</button>
@@ -277,6 +325,10 @@
 
     </div>
   </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Teach Me Hub • Hosted with GitHub Pages</p>
+  </footer>
 
   <script>
     const deckData = [
@@ -591,13 +643,14 @@
 ];
 
     const STORAGE_KEY = "teachme_adobe_statuses";
+    const ROUND_SIZE = 7;
 
-    // State
-    let queue = [];
-    let currentQueueIdx = 0;
-    let currentStage = 1;
+    let currentRoundNumber = 1;
+    let roundCards = [];
+    let questionInRoundIndex = 0;
+    let currentTargetCloze = "";
 
-    // Initialize Deck & State
+    // Initialization
     function initLearnSession() {
       let saved = {};
       try {
@@ -605,18 +658,32 @@
       } catch (e) {}
 
       deckData.forEach((card, idx) => {
-        if (saved[idx]) {
-          card.status = saved[idx];
-        } else if (!card.status) {
-          card.status = "new";
+        if (saved[idx] === "mastered") {
+          card.status = "mastered";
+          card.stage = 3;
+        } else {
+          card.status = saved[idx] || "new";
+          card.stage = 1; // Start at Stage 1: Multiple Choice
         }
       });
 
-      queue = [...deckData];
-      fisherYatesShuffle(queue);
-      currentQueueIdx = 0;
-      updateHeaderStats();
-      renderCurrentCard();
+      currentRoundNumber = 1;
+      buildRoundQueue();
+    }
+
+    function restartLearnSession() {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
+      deckData.forEach(card => {
+        card.status = "new";
+        card.stage = 1;
+      });
+      document.getElementById("completionBanner").style.display = "none";
+      document.getElementById("roundTransitionCard").style.display = "none";
+      document.getElementById("quiz-card-container").style.display = "block";
+      currentRoundNumber = 1;
+      buildRoundQueue();
     }
 
     function fisherYatesShuffle(arr) {
@@ -626,61 +693,89 @@
       }
     }
 
-    function reshuffleQueue() {
-      const remaining = queue.slice(currentQueueIdx);
-      fisherYatesShuffle(remaining);
-      queue = queue.slice(0, currentQueueIdx).concat(remaining);
-      renderCurrentCard();
-    }
-
-    function restartLearnSession() {
-      document.getElementById("completionBanner").style.display = "none";
-      document.getElementById("quiz-card-container").style.display = "block";
-      initLearnSession();
-    }
-
-    function updateHeaderStats() {
+    function updateMasteryStats() {
       const masteredCount = deckData.filter(c => c.status === "mastered").length;
       document.getElementById("mastery-counter").innerText = masteredCount;
       document.getElementById("total-cards-counter").innerText = deckData.length;
 
-      const progressPercent = Math.round((masteredCount / deckData.length) * 100);
-      document.getElementById("lm-progress-fill").style.width = progressPercent + "%";
-
-      document.getElementById("queue-progress-text").innerText = (currentQueueIdx + 1) + " / " + queue.length;
+      const pct = Math.round((masteredCount / deckData.length) * 100);
+      document.getElementById("lm-progress-fill").style.width = pct + "%";
     }
 
-    function renderCurrentCard() {
-      if (currentQueueIdx >= queue.length) {
-        const unmastered = queue.filter(c => c.status !== "mastered");
-        if (unmastered.length > 0) {
-          queue = [...unmastered];
-          fisherYatesShuffle(queue);
-          currentQueueIdx = 0;
-        } else {
-          document.getElementById("quiz-card-container").style.display = "none";
-          document.getElementById("completionBanner").style.display = "block";
-          updateHeaderStats();
-          return;
-        }
+    function buildRoundQueue() {
+      updateMasteryStats();
+
+      // Check if all cards are mastered
+      const unmastered = deckData.filter(c => c.status !== "mastered");
+      if (unmastered.length === 0) {
+        document.getElementById("quiz-card-container").style.display = "none";
+        document.getElementById("roundTransitionCard").style.display = "none";
+        document.getElementById("completionBanner").style.display = "block";
+        return;
       }
 
-      updateHeaderStats();
-      setupStage1();
+      // Select up to ROUND_SIZE cards for this round
+      // Shuffle unmastered pool to ensure variety
+      const candidatePool = [...unmastered];
+      fisherYatesShuffle(candidatePool);
+
+      roundCards = candidatePool.slice(0, ROUND_SIZE);
+      questionInRoundIndex = 0;
+
+      document.getElementById("quiz-card-container").style.display = "block";
+      document.getElementById("roundTransitionCard").style.display = "none";
+      document.getElementById("completionBanner").style.display = "none";
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      if (questionInRoundIndex >= roundCards.length) {
+        // Round Complete!
+        finishCurrentRound();
+        return;
+      }
+
+      const card = roundCards[questionInRoundIndex];
+      const roundBadge = document.getElementById("roundBadgeEl");
+      const stageDesc = document.getElementById("cardStageDesc");
+      const roundText = document.getElementById("round-indicator-text");
+
+      roundText.innerText = `Round ${currentRoundNumber} • Question ${questionInRoundIndex + 1} of ${roundCards.length}`;
+
+      const stage = card.stage || 1;
+
+      if (stage === 1) {
+        // Stage 1: Multiple Choice
+        roundBadge.className = "round-badge r1-badge";
+        roundBadge.innerText = "Round 1: Multiple Choice";
+        stageDesc.innerText = "Cognitive Recognition";
+        setupStage1(card);
+      } else if (stage === 2) {
+        // Stage 2: Fill in the Blank
+        roundBadge.className = "round-badge r2-badge";
+        roundBadge.innerText = "Round 2: Fill in the Blank";
+        stageDesc.innerText = "Cued Retrieval";
+        setupStage2(card);
+      } else {
+        // Stage 3: Active Recall
+        roundBadge.className = "round-badge r3-badge";
+        roundBadge.innerText = "Round 3: Complete Active Recall";
+        stageDesc.innerText = "Cognitive Generation";
+        setupStage3(card);
+      }
     }
 
     // ==========================================
     // STAGE 1: MULTIPLE CHOICE (Sampled Distractors)
     // ==========================================
-    function setupStage1() {
-      currentStage = 1;
-      updateTierBadge("Stage 1: Multiple Choice", "t1-badge");
-      document.getElementById("tier1Section").style.display = "block";
-      document.getElementById("tier2Section").style.display = "none";
+    function setupStage1(card) {
+      document.getElementById("stage1Section").style.display = "block";
+      document.getElementById("stage2Section").style.display = "none";
+      document.getElementById("stage3Section").style.display = "none";
 
-      const card = queue[currentQueueIdx];
-      document.getElementById("t1QuestionText").innerText = card.q;
-      const feedback = document.getElementById("t1FeedbackBox");
+      document.getElementById("s1QuestionText").innerText = card.q;
+      const feedback = document.getElementById("s1FeedbackBox");
       feedback.style.display = "none";
       feedback.innerHTML = "";
 
@@ -697,7 +792,7 @@
       ];
       fisherYatesShuffle(options);
 
-      const grid = document.getElementById("t1OptionsGrid");
+      const grid = document.getElementById("s1OptionsGrid");
       grid.innerHTML = "";
       const letters = ["A", "B", "C", "D"];
 
@@ -705,73 +800,161 @@
         const btn = document.createElement("button");
         btn.className = "mc-option-btn";
         btn.innerHTML = `<span class="option-letter">${letters[idx]}</span> <span>${opt.text}</span>`;
-        btn.onclick = () => handleTier1Selection(btn, opt.isCorrect, card.a);
+        btn.onclick = () => handleStage1Selection(btn, opt.isCorrect, card);
         grid.appendChild(btn);
       });
     }
 
-    function handleTier1Selection(selectedBtn, isCorrect, correctText) {
+    function handleStage1Selection(selectedBtn, isCorrect, card) {
       const allBtns = document.querySelectorAll(".mc-option-btn");
       allBtns.forEach(b => b.disabled = true);
 
-      const feedback = document.getElementById("t1FeedbackBox");
+      const feedback = document.getElementById("s1FeedbackBox");
       feedback.style.display = "block";
 
       if (isCorrect) {
         selectedBtn.classList.add("correct");
+        card.stage = 2; // Progress to Stage 2 (Fill in Blank) for future rounds
         feedback.className = "feedback-banner feedback-success";
         feedback.innerHTML = `
-          <strong>✅ Correct!</strong> Recognized definition from source notes.<br>
-          <button class="btn btn-primary" id="t1AdvanceBtn" style="margin-top: 12px;" onclick="setupStage2()">Advance to Free Active Recall →</button>
+          <strong>✅ Correct!</strong> You recognized the definition. This card advances to Fill in the Blank.<br>
+          <button class="btn btn-primary" id="s1NextBtn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
         `;
         setTimeout(() => {
-          const adv = document.getElementById("t1AdvanceBtn");
-          if (adv) adv.focus();
+          const b = document.getElementById("s1NextBtn");
+          if (b) b.focus();
         }, 50);
       } else {
         selectedBtn.classList.add("incorrect");
         allBtns.forEach(b => {
-          if (b.innerText.includes(correctText.replace(/<[^>]+>/g, "").slice(0, 30))) {
+          if (b.innerText.includes(card.a.replace(/<[^>]+>/g, "").slice(0, 30))) {
             b.classList.add("correct");
           }
         });
+        card.stage = 1; // Keep in Multiple Choice
         feedback.className = "feedback-banner feedback-warning";
         feedback.innerHTML = `
-          <strong>💡 Notice the distinction from source notes.</strong> This card has been pushed back in your queue for practice.<br>
-          <button class="btn" style="margin-top: 12px;" onclick="requeueCurrentAndProceedToStage2()">Continue to Active Recall</button>
+          <strong>💡 Notice the definition from source notes:</strong><br>${card.a}<br>
+          <span style="font-size: 0.85rem; color: #666;">This card will reappear as Multiple Choice in subsequent rounds.</span><br>
+          <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
         `;
       }
     }
 
-    function requeueCurrentAndProceedToStage2() {
-      const current = queue[currentQueueIdx];
-      queue.push(current);
-      setupStage2();
+    // ==========================================
+    // STAGE 2: FILL IN THE BLANK (Cloze)
+    // ==========================================
+    function setupStage2(card) {
+      document.getElementById("stage1Section").style.display = "none";
+      document.getElementById("stage2Section").style.display = "block";
+      document.getElementById("stage3Section").style.display = "none";
+
+      document.getElementById("s2QuestionText").innerText = card.q;
+      const feedback = document.getElementById("s2FeedbackBox");
+      feedback.style.display = "none";
+      feedback.innerHTML = "";
+
+      // Determine target word to blank out
+      let targetWord = "";
+      const boldMatch = card.a.match(/\*\*(.*?)\*\*/);
+      if (card.targetTerm) {
+        targetWord = card.targetTerm;
+      } else if (card.keyTerm) {
+        targetWord = card.keyTerm;
+      } else if (boldMatch && boldMatch[1].trim().length > 1) {
+        targetWord = boldMatch[1].trim();
+      } else {
+        const words = card.a.split(/\s+/).filter(w => w.length > 5);
+        targetWord = words[0] || "concept";
+      }
+
+      currentTargetCloze = targetWord;
+
+      // Create sentence with blank
+      let sentenceHtml = card.a;
+      if (sentenceHtml.includes(targetWord)) {
+        sentenceHtml = sentenceHtml.replace(targetWord, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
+      } else {
+        // Regex case-insensitive fallback replace
+        const regex = new RegExp(targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        sentenceHtml = sentenceHtml.replace(regex, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
+      }
+
+      document.getElementById("s2ClozeSentence").innerHTML = sentenceHtml;
+      const inp = document.getElementById("s2Input");
+      inp.value = "";
+      inp.disabled = false;
+      document.getElementById("s2SubmitBtn").disabled = false;
+      setTimeout(() => inp.focus(), 60);
+
+      // Allow Enter key to submit
+      inp.onkeydown = (e) => {
+        if (e.key === "Enter") submitStage2Cloze();
+      };
+    }
+
+    function submitStage2Cloze() {
+      const card = roundCards[questionInRoundIndex];
+      const inp = document.getElementById("s2Input");
+      const userVal = inp.value.trim().toLowerCase();
+      const targetVal = currentTargetCloze.toLowerCase();
+      const feedback = document.getElementById("s2FeedbackBox");
+
+      if (!userVal) {
+        alert("Please type your answer before submitting.");
+        return;
+      }
+
+      inp.disabled = true;
+      document.getElementById("s2SubmitBtn").disabled = true;
+      feedback.style.display = "block";
+
+      const isMatch = (userVal === targetVal) || (targetVal.includes(userVal) && userVal.length >= 3) || (userVal.includes(targetVal));
+
+      if (isMatch) {
+        card.stage = 3; // Advance to Stage 3 (Active Recall)
+        feedback.className = "feedback-banner feedback-success";
+        feedback.innerHTML = `
+          <strong>✅ Correct!</strong> Missing term: <strong>${currentTargetCloze}</strong>.<br>
+          This card advances to Complete Active Recall in future rounds.<br>
+          <button class="btn btn-primary" id="s2NextBtn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
+        `;
+        setTimeout(() => {
+          const b = document.getElementById("s2NextBtn");
+          if (b) b.focus();
+        }, 50);
+      } else {
+        card.stage = 2; // Stay in Stage 2
+        feedback.className = "feedback-banner feedback-warning";
+        feedback.innerHTML = `
+          <strong>💡 Target term from source notes:</strong> <strong>${currentTargetCloze}</strong>.<br>
+          <span style="font-size: 0.85rem; color: #666;">This card will reappear as Fill in the Blank in subsequent rounds.</span><br>
+          <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
+        `;
+      }
     }
 
     // ==========================================
-    // STAGE 2: FREE ACTIVE RECALL (Side-by-Side)
+    // STAGE 3: ACTIVE RECALL (Side-by-Side)
     // ==========================================
-    function setupStage2() {
-      currentStage = 2;
-      updateTierBadge("Stage 2: Free Active Recall", "t2-badge");
-      document.getElementById("tier1Section").style.display = "none";
-      document.getElementById("tier2Section").style.display = "block";
+    function setupStage3(card) {
+      document.getElementById("stage1Section").style.display = "none";
+      document.getElementById("stage2Section").style.display = "none";
+      document.getElementById("stage3Section").style.display = "block";
 
-      const card = queue[currentQueueIdx];
-      document.getElementById("t2QuestionText").innerText = card.q;
+      document.getElementById("s3QuestionText").innerText = card.q;
 
-      const input = document.getElementById("t2RecallInput");
+      const input = document.getElementById("s3RecallInput");
       input.value = "";
       input.disabled = false;
 
-      document.getElementById("t2ActionContainer").style.display = "block";
-      document.getElementById("t2SideBySideContainer").style.display = "none";
+      document.getElementById("s3ActionContainer").style.display = "block";
+      document.getElementById("s3SideBySideContainer").style.display = "none";
       setTimeout(() => input.focus(), 60);
     }
 
-    function verifyActiveRecall() {
-      const input = document.getElementById("t2RecallInput");
+    function verifyStage3Recall() {
+      const input = document.getElementById("s3RecallInput");
       const userText = input.value.trim();
       if (!userText) {
         alert("Please write your recall response before comparing.");
@@ -779,48 +962,73 @@
       }
 
       input.disabled = true;
-      const card = queue[currentQueueIdx];
-      document.getElementById("t2UserResponse").innerText = userText;
-      document.getElementById("t2SourceResponse").innerHTML = card.a;
+      const card = roundCards[questionInRoundIndex];
+      document.getElementById("s3UserResponse").innerText = userText;
+      document.getElementById("s3SourceResponse").innerHTML = card.a;
 
-      document.getElementById("t2ActionContainer").style.display = "none";
-      document.getElementById("t2SideBySideContainer").style.display = "block";
+      document.getElementById("s3ActionContainer").style.display = "none";
+      document.getElementById("s3SideBySideContainer").style.display = "block";
     }
 
-    function resolveCardMastery(isMastered) {
-      const card = queue[currentQueueIdx];
+    function resolveStage3Mastery(isMastered) {
+      const card = roundCards[questionInRoundIndex];
       if (isMastered) {
         card.status = "mastered";
       } else {
+        // Return to Fill in the Blank per instructions
+        card.stage = 2;
         card.status = "learning";
-        const remaining = queue.slice(currentQueueIdx + 1);
-        const insertPos = Math.min(3, remaining.length);
-        remaining.splice(insertPos, 0, card);
-        queue = queue.slice(0, currentQueueIdx + 1).concat(remaining);
       }
 
-      saveStatusToStorage();
-      currentQueueIdx++;
-      renderCurrentCard();
+      saveProgressToStorage();
+      updateMasteryStats();
+      advanceQuestion();
     }
 
-    function saveStatusToStorage() {
+    function advanceQuestion() {
+      questionInRoundIndex++;
+      renderQuestion();
+    }
+
+    function finishCurrentRound() {
+      updateMasteryStats();
+      const unmastered = deckData.filter(c => c.status !== "mastered");
+
+      if (unmastered.length === 0) {
+        document.getElementById("quiz-card-container").style.display = "none";
+        document.getElementById("roundTransitionCard").style.display = "none";
+        document.getElementById("completionBanner").style.display = "block";
+        return;
+      }
+
+      // Show round transition card
+      document.getElementById("quiz-card-container").style.display = "none";
+      document.getElementById("roundTransitionCard").style.display = "block";
+      document.getElementById("roundTransitionTitle").innerText = `🎉 Round ${currentRoundNumber} Complete!`;
+      document.getElementById("roundTransitionSub").innerHTML = `
+        You finished 7 questions in this round.<br>
+        <strong>${unmastered.length}</strong> card${unmastered.length === 1 ? "" : "s"} remaining in this deck.
+      `;
+    }
+
+    function startNextRound() {
+      currentRoundNumber++;
+      buildRoundQueue();
+    }
+
+    function saveProgressToStorage() {
       try {
-        const toSave = {};
+        const saved = {};
         deckData.forEach((c, idx) => {
-          toSave[idx] = c.status;
+          if (c.status === "mastered") saved[idx] = "mastered";
+          else if (c.status === "learning") saved[idx] = "learning";
         });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
       } catch (e) {}
     }
 
-    function updateTierBadge(label, cls) {
-      const slot = document.getElementById("tier-pill-slot");
-      slot.innerHTML = `<span class="tier-badge ${cls}">${label}</span>`;
-    }
-
-    // Boot
-    initLearnSession();
+    window.addEventListener("DOMContentLoaded", initLearnSession);
   </script>
+
 </body>
 </html>
