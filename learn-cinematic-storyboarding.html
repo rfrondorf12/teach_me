@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Storyboarding &amp; Motion Graphics — Learn Mode</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .learn-container {
+      max-width: 780px;
+      margin: 0 auto;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      border: 2px solid var(--border-color);
+      box-shadow: 2px 2px 0 var(--border-color);
+    }
+    .t1-badge { background-color: var(--accent-yellow); color: #240404; }
+    .t2-badge { background-color: var(--accent-teal); color: #240404; }
+
+    .lm-progress-bar {
+      width: 100%;
+      height: 14px;
+      background-color: #e2e8f0;
+      border: 2px solid var(--border-color);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 10px 0 18px 0;
+    }
+    .lm-progress-fill {
+      height: 100%;
+      background-color: var(--folder-art);
+      width: 0%;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .quiz-card {
+      background: #ffffff;
+      border: 3px solid var(--border-color);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 6px 6px 0px var(--border-color);
+      margin-top: 16px;
+    }
+
+    .mc-option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background-color: #ffffff;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.5;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 3px 3px 0 var(--border-color);
+    }
+    .mc-option-btn:hover:not(:disabled) {
+      background-color: #f8fafc;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--border-color);
+    }
+    .mc-option-btn:disabled {
+      cursor: default;
+    }
+    .mc-option-btn.correct {
+      background-color: #dcfce7 !important;
+      border-color: #16a34a !important;
+      color: #14532d !important;
+    }
+    .mc-option-btn.incorrect {
+      background-color: #fee2e2 !important;
+      border-color: #dc2626 !important;
+      color: #7f1d1d !important;
+    }
+
+    .option-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+      background-color: var(--bg-canvas);
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .feedback-banner {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .feedback-success {
+      background-color: #dcfce7;
+      border-color: #16a34a;
+      color: #14532d;
+    }
+    .feedback-warning {
+      background-color: #fef3c7;
+      border-color: #d97706;
+      color: #78350f;
+    }
+
+    .side-by-side-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .side-box {
+      padding: 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background: #faf5f1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Website Navigation Bar -->
+  <header class="site-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="brand-group">
+        <div class="brand-badge">👾 TEACH ME HUB</div>
+      </a>
+
+      <nav>
+        <ul class="nav-links-row">
+          <li><a href="index.html" class="nav-link-btn">🏠 Dashboard</a></li>
+          <li><a href="folders.html" class="nav-link-btn">📁 Subject Folders</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="pill-badge pill-art">Art</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <div class="content-container learn-container">
+
+      <!-- Breadcrumbs & Links -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span class="pill-badge pill-art">Art</span>
+          <h2 style="margin-top: 6px; font-size: 1.4rem;">Cinematic Storyboarding &amp; Motion Graphics — Learn Mode</h2>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <a href="flashcards-cinematic-storyboarding.html" class="btn">🎴 Flashcards</a>
+          <a href="note-cinematic-storyboarding.html" class="btn btn-primary">📝 Notes</a>
+        </div>
+      </div>
+
+      <!-- Learn Mode Header Status -->
+      <div class="neo-box" style="padding: 18px 24px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: bold;">
+          <span>🎯 Mastery Progress: <strong id="mastery-counter">0</strong> / <strong id="total-cards-counter">30</strong> Mastered</span>
+          <span>Queue Position: <strong id="queue-progress-text">1 / 30</strong></span>
+        </div>
+        <div class="lm-progress-bar">
+          <div class="lm-progress-fill" id="lm-progress-fill"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #555;">
+          <span>Graduated 2-Tier Cognitive Practice: Recognition → Free Active Recall</span>
+          <button class="btn btn-sm" onclick="reshuffleQueue()" title="Shuffle remaining queue">🔀 Reshuffle Queue</button>
+        </div>
+      </div>
+
+      <!-- Interactive Learn Container -->
+      <div id="quiz-card-container" class="quiz-card">
+        
+        <!-- Tier / Stage Badge -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span id="tierBadgeEl" class="tier-badge t1-badge">Stage 1: Multiple Choice</span>
+          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b;" id="cardStatusPill">In Progress</span>
+        </div>
+
+        <!-- Stage 1: Multiple Choice (Recognition) -->
+        <div id="tier1Section">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+            Stage 1 · Recognition (Multiple Choice)
+          </div>
+          <h3 id="t1QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 20px; color: #0f172a;"></h3>
+          <div id="t1OptionsGrid" style="display: grid; gap: 12px;"></div>
+          <div id="t1FeedbackBox" class="feedback-banner" style="display: none;"></div>
+        </div>
+
+        <!-- Stage 2: Free Active Recall & Side-by-Side Assessment -->
+        <div id="tier2Section" style="display: none;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+            Stage 2 · Free Active Recall (Cognitive Generation)
+          </div>
+          <h3 id="t2QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 12px; color: #0f172a;"></h3>
+          <p style="font-size: 0.9rem; color: #475569; margin-bottom: 14px;">
+            Explain this concept completely in your own words without looking at your notes. (Full keyboard freedom for spaces, returns, and punctuation):
+          </p>
+          <textarea id="t2RecallInput" rows="5" placeholder="Type your full recall explanation here..." style="width: 100%; padding: 14px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; line-height: 1.6; outline: none; margin-bottom: 16px; box-sizing: border-box;"></textarea>
+          
+          <div id="t2ActionContainer">
+            <button class="btn btn-primary" id="t2VerifyBtn" onclick="verifyActiveRecall()" style="padding: 12px 24px; font-size: 1rem;">
+              Compare Side-by-Side with Source Notes →
+            </button>
+          </div>
+
+          <!-- Comparison Display -->
+          <div id="t2SideBySideContainer" style="display: none;">
+            <div class="side-by-side-grid">
+              <div class="side-box">
+                <div style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 8px;">
+                  ✍️ What You Typed:
+                </div>
+                <div id="t2UserResponse" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #0f172a;"></div>
+              </div>
+              <div class="side-box" style="background: #ffffff; border-color: #16a34a;">
+                <div style="font-size: 0.85rem; font-weight: 800; color: #16a34a; text-transform: uppercase; margin-bottom: 8px;">
+                  📖 Source Note Definition:
+                </div>
+                <div id="t2SourceResponse" style="font-size: 0.95rem; line-height: 1.6; color: #0f172a;"></div>
+              </div>
+            </div>
+
+            <!-- Self-evaluation prompt -->
+            <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px; text-align: center;">
+              <h4 style="font-size: 1.05rem; margin-bottom: 8px;">Self-Assessment: Did your answer capture the core concept?</h4>
+              <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 18px;">
+                You decide your mastery. AI does not automatically judge or replace your critical evaluation.
+              </p>
+              <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                <button class="btn" style="border-color: var(--accent-orange); background: #fffdf5;" onclick="resolveCardMastery(false)">
+                  ⏳ Still Learning (Re-queue for practice)
+                </button>
+                <button class="btn btn-primary" style="background-color: #dcfce7; color: #14532d; border-color: #16a34a;" onclick="resolveCardMastery(true)">
+                  ✅ Mastered! (Advance to next card)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Completion Banner (hidden until queue empty) -->
+      <div id="completionBanner" class="quiz-card" style="display: none; text-align: center; padding: 48px 24px;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 12px;">All Cards Mastered in Learn Mode!</h2>
+        <p style="font-size: 1.05rem; color: #475569; max-width: 540px; margin: 0 auto 28px auto;">
+          You successfully navigated through Multiple Choice recognition and typed active recall verification across the entire deck.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="restartLearnSession()">🔁 Practice Again</button>
+          <a href="flashcards-cinematic-storyboarding.html" class="btn">🎴 Return to Flashcards</a>
+          <a href="folders.html" class="btn">📁 Subject Folders</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Teach Me Hub • Hosted with GitHub Pages</p>
+  </footer>
+
+  <script>
+    const deckData = [
+      {
+        "q": "What is a Close-Up Shot in cinematic framing?",
+        "a": "A framing technique focusing tightly on a specific subject, such as a character's face, to emphasize emotional nuance, reaction, or fine detail, contrasted against wider environmental perspectives.",
+        "hint": "Tight focus on emotional nuance or facial reaction.",
+        "status": "new",
+        "targetTerm": "Close-Up Shot",
+        "keyTerm": "Close-Up Shot"
+      },
+      {
+        "q": "What is a Point of View (POV) Shot?",
+        "a": "A subjective camera angle positioned to replicate the precise optical perspective of a character, allowing the audience to see the scene directly through that character's eyes.",
+        "hint": "Camera through a character's optical perspective.",
+        "status": "new",
+        "targetTerm": "Point of View (POV) Shot",
+        "keyTerm": "Point of View (POV) Shot"
+      },
+      {
+        "q": "What is a Wide Shot?",
+        "a": "A wide-angle framing that captures the subject's entire body along with a significant portion of the surrounding environment, establishing spatial relationships, scale, and geographical context.",
+        "hint": "Entire body plus surrounding environment.",
+        "status": "new",
+        "targetTerm": "Wide Shot",
+        "keyTerm": "Wide Shot"
+      },
+      {
+        "q": "What is a Medium Shot?",
+        "a": "A transitional framing that captures a character typically from the waist or torso upward, striking a balance between facial expression and bodily gesture without displaying the full figure.",
+        "hint": "Waist or torso upward framing.",
+        "status": "new",
+        "targetTerm": "Medium Shot",
+        "keyTerm": "Medium Shot"
+      },
+      {
+        "q": "How do filmmakers generate narrative suspense?",
+        "a": "By deliberately pausing, decelerating, or withholding the decisive action immediately prior to the climax or full revelation of a scene.",
+        "hint": "Pausing or decelerating before decisive action.",
+        "status": "new",
+        "targetTerm": "narrative suspense",
+        "keyTerm": "narrative suspense"
+      },
+      {
+        "q": "What is the foundational premise of dramatic theory?",
+        "a": "The foundational premise of dramatic theory establishes that the essence of drama is action.",
+        "hint": "The core essence of drama.",
+        "status": "new",
+        "targetTerm": "action",
+        "keyTerm": "dramatic theory"
+      },
+      {
+        "q": "How does a narrative achieve a complex narrative structure?",
+        "a": "By adhering to a structured arc of events driven by conflict, plausible developments, and the subversion of audience expectations.",
+        "hint": "Conflict, plausibility, and expectation subversion.",
+        "status": "new",
+        "targetTerm": "complex narrative structure",
+        "keyTerm": "complex narrative structure"
+      },
+      {
+        "q": "What is the Rule of Threes in storytelling and pattern recognition?",
+        "a": "The first two items establish an expected pattern or rhythm, while the third item ruptures that pattern with an unexpected twist or surprise ending.",
+        "hint": "Two items establish pattern, third ruptures it.",
+        "status": "new",
+        "targetTerm": "Rule of Threes",
+        "keyTerm": "Rule of Threes"
+      },
+      {
+        "q": "What is Scenario Planning in strategic foresight?",
+        "a": "A strategic foresight methodology that evaluates historical patterns, current trends, and structural shifts to anticipate divergent potential futures across probable, plausible, possible, and wildcard horizons.",
+        "hint": "Foresight evaluating trends to anticipate futures.",
+        "status": "new",
+        "targetTerm": "Scenario Planning",
+        "keyTerm": "Scenario Planning"
+      },
+      {
+        "q": "What are Wildcard Scenarios in foresight frameworks?",
+        "a": "Low-probability, high-impact disruptions that push brainstorming beyond conventional assumptions, forcing designers to develop resilient problem-solving models.",
+        "hint": "Low-probability, high-impact disruptions.",
+        "status": "new",
+        "targetTerm": "Wildcard Scenarios",
+        "keyTerm": "Wildcard Scenarios"
+      },
+      {
+        "q": "What historical innovation is Webb Smith credited with at Walt Disney Studios?",
+        "a": "Inventing the modern storyboard by pinning sequential concept sketches to studio boards during the production of The Three Little Pigs.",
+        "hint": "Pinning sequential sketches for The Three Little Pigs.",
+        "status": "new",
+        "targetTerm": "Webb Smith",
+        "keyTerm": "Webb Smith"
+      },
+      {
+        "q": "What 1929 comic strip adaptation catalyzed the cinematic storyboard format at Fleischer Studios?",
+        "a": "New York animators adapted sequential illustrative techniques directly from Popeye comic strips, catalyzing the storyboard format prior to its adoption by Disney.",
+        "hint": "1929 New York animators and Popeye comic strips.",
+        "status": "new",
+        "targetTerm": "Fleischer Studios",
+        "keyTerm": "Fleischer Studios"
+      },
+      {
+        "q": "What is the Frame Within a Frame compositional technique?",
+        "a": "Placing an interior structural boundary—such as an illuminated doorway, window frame, or architectural portal—inside the cinematic camera frame to direct viewer focus and create layered depth.",
+        "hint": "Interior architectural boundary directing viewer focus.",
+        "status": "new",
+        "targetTerm": "Frame Within a Frame",
+        "keyTerm": "Frame Within a Frame"
+      },
+      {
+        "q": "Why did Alfred Hitchcock enforce exact frame-to-shot storyboard discipline on films like The Birds?",
+        "a": "Comprehensive pre-visualization avoided operational delays and financial waste on set, where technical crews exceeding 100 individuals generated high hourly production costs.",
+        "hint": "Avoiding delays with crews exceeding 100 individuals.",
+        "status": "new",
+        "targetTerm": "pre-visualization",
+        "keyTerm": "Alfred Hitchcock"
+      },
+      {
+        "q": "How did storyboard artists construct perspective in the Jurassic Park air duct sequence?",
+        "a": "Storyboard artists employed linear perspective grids across ceiling tiles, canting the camera angle off-axis to create immediate atmospheric suspense, spatial instability, and kinetic tension.",
+        "hint": "Linear ceiling grids and canted off-axis angles.",
+        "status": "new",
+        "targetTerm": "perspective grids",
+        "keyTerm": "Jurassic Park"
+      },
+      {
+        "q": "Why do Adobe Premiere Pro and After Effects utilize dynamic media linking instead of file embedding?",
+        "a": "Because of large media file sizes; dynamic linking references absolute directory paths, preventing bloated project files while requiring file paths to remain unchanged.",
+        "hint": "Large media file sizes and absolute directory paths.",
+        "status": "new",
+        "targetTerm": "dynamic media linking",
+        "keyTerm": "dynamic media linking"
+      },
+      {
+        "q": "How should Adobe Illustrator vector graphics be imported into After Effects to preserve discrete layers?",
+        "a": "Import files as Composition - Retain Layer Sizes rather than standard Footage to preserve discrete layers, original bounding boxes, and layer-specific anchor points.",
+        "hint": "Composition - Retain Layer Sizes.",
+        "status": "new",
+        "targetTerm": "Composition - Retain Layer Sizes",
+        "keyTerm": "Import Settings"
+      },
+      {
+        "q": "What standard composition specifications are established for After Effects motion projects?",
+        "a": "Landscape resolution of 1920 × 1080 pixels, frame rate of 30 fps, initial duration of 20 seconds 0 frames (timecode 20:00), and a solid black background.",
+        "hint": "1080p, 30 fps, 20 seconds duration.",
+        "status": "new",
+        "targetTerm": "composition specifications",
+        "keyTerm": "Composition Setup"
+      },
+      {
+        "q": "What five transformation properties comprise the PARTS acronym in After Effects?",
+        "a": "Position (P), Anchor Point (A), Rotation (R), Transparency / Opacity (T), and Scale (S).",
+        "hint": "P-A-R-T-S layer properties.",
+        "status": "new",
+        "targetTerm": "PARTS",
+        "keyTerm": "PARTS"
+      },
+      {
+        "q": "What does keyboard shortcut U do in Adobe After Effects?",
+        "a": "Pressing U with a layer selected instantly isolates and reveals only those properties containing active keyframes; pressing U again closes the property tree.",
+        "hint": "Isolates and reveals active keyframe properties.",
+        "status": "new",
+        "targetTerm": "Shortcut U",
+        "keyTerm": "Shortcut U"
+      },
+      {
+        "q": "What happens if you click the stopwatch icon a second time on an After Effects property?",
+        "a": "Clicking the stopwatch a second time permanently purges and deletes all active keyframes across that property track.",
+        "hint": "Permanently purges all active keyframes.",
+        "status": "new",
+        "targetTerm": "stopwatch icon",
+        "keyTerm": "Stopwatch Activation"
+      },
+      {
+        "q": "What keyboard shortcuts navigate the playhead between keyframes in After Effects?",
+        "a": "Shortcut J jumps backward to the immediately preceding keyframe; shortcut K jumps forward to the subsequent keyframe.",
+        "hint": "J (backward) and K (forward).",
+        "status": "new",
+        "targetTerm": "J and K",
+        "keyTerm": "Keyframe Navigation"
+      },
+      {
+        "q": "What do keyboard shortcuts Alt + [ and Alt + ] execute on the timeline?",
+        "a": "Alt + [ trims the layer's In-point to the current playhead position; Alt + ] trims the layer's Out-point without corrupting or deleting active keyframes.",
+        "hint": "Trims In-point and Out-point to playhead.",
+        "status": "new",
+        "targetTerm": "In/Out Point Trimming",
+        "keyTerm": "Timeline Shortcuts"
+      },
+      {
+        "q": "What are the three rotational axes available when converting a layer to a 3D Layer?",
+        "a": "x-Rotation (pitches forward/backward), y-Rotation (yaw spins vertically), and z-Rotation (rolls clockwise/counter-clockwise on a flat plane).",
+        "hint": "x-axis pitch, y-axis yaw, z-axis roll.",
+        "status": "new",
+        "targetTerm": "3D Layer Switch",
+        "keyTerm": "3D Layer"
+      },
+      {
+        "q": "What is the difference between Linear Keyframes and Bézier Keyframes?",
+        "a": "Linear keyframes (diamond icons) move at rigid uniform velocity with abrupt stops; Bézier keyframes (hourglass icons) use polynomial algorithms to ramp speed for cushioned physical motion.",
+        "hint": "Diamond uniform velocity vs. hourglass cushioned motion.",
+        "status": "new",
+        "targetTerm": "Bézier Keyframes",
+        "keyTerm": "Mathematical Interpolation"
+      },
+      {
+        "q": "How are selected keyframes converted to Easy Ease in After Effects?",
+        "a": "Right-click and navigate to Keyframe Assistant -> Easy Ease, or press keyboard shortcut F9.",
+        "hint": "Keyframe Assistant -> Easy Ease or F9.",
+        "status": "new",
+        "targetTerm": "Easy Ease",
+        "keyTerm": "Easy Ease"
+      },
+      {
+        "q": "What is the difference between the Action Safe Line and the Title Safe Line?",
+        "a": "The Action Safe Line is the outer perimeter ensuring visual elements avoid display edge clipping; Title Safe Line is the inner perimeter guaranteeing typography and logos remain legible across aspect ratios.",
+        "hint": "Outer perimeter for action vs. inner perimeter for typography.",
+        "status": "new",
+        "targetTerm": "Action Safe Line",
+        "keyTerm": "Broadcast Safe Margins"
+      },
+      {
+        "q": "Why must editable typography be converted via Create Outlines (Ctrl/Cmd + Shift + O) before After Effects export?",
+        "a": "It converts editable text into static vector geometry, preventing missing font warnings and formatting corruption on third-party editorial systems.",
+        "hint": "Transforms text into static vector geometry.",
+        "status": "new",
+        "targetTerm": "Create Outlines",
+        "keyTerm": "Typography Outlining"
+      },
+      {
+        "q": "Why must path strokes be expanded via Outline Stroke in Illustrator for motion graphics?",
+        "a": "Unexpanded strokes scale disproportionately when transformed inside After Effects, distorting the intended visual stroke weight.",
+        "hint": "Prevents disproportionate stroke weight distortion during scaling.",
+        "status": "new",
+        "targetTerm": "Outline Stroke",
+        "keyTerm": "Stroke Expansion"
+      },
+      {
+        "q": "What is the dual file archival strategy for vector motion graphics preparation?",
+        "a": "Maintaining one un-outlined master Illustrator file preserving live, editable text layers alongside a secondary production-ready file containing fully outlined vector artwork.",
+        "hint": "Un-outlined master text file plus production outlined file.",
+        "status": "new",
+        "targetTerm": "dual file archival strategy",
+        "keyTerm": "Dual File Archival"
+      }
+    ];
+
+    const STORAGE_KEY = "teachme_progress_cinematic_storyboarding";
+
+    // State
+    let queue = [];
+    let currentQueueIdx = 0;
+    let currentStage = 1;
+
+    // Initialize Deck & State
+    function initLearnSession() {
+      let saved = {};
+      try {
+        saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      } catch (e) {}
+
+      deckData.forEach((card, idx) => {
+        if (saved[idx]) {
+          card.status = saved[idx];
+        } else if (!card.status) {
+          card.status = "new";
+        }
+      });
+
+      queue = [...deckData];
+      fisherYatesShuffle(queue);
+      currentQueueIdx = 0;
+      updateHeaderStats();
+      renderCurrentCard();
+    }
+
+    function fisherYatesShuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    function reshuffleQueue() {
+      const remaining = queue.slice(currentQueueIdx);
+      fisherYatesShuffle(remaining);
+      queue = queue.slice(0, currentQueueIdx).concat(remaining);
+      renderCurrentCard();
+    }
+
+    function restartLearnSession() {
+      document.getElementById("completionBanner").style.display = "none";
+      document.getElementById("quiz-card-container").style.display = "block";
+      initLearnSession();
+    }
+
+    function updateHeaderStats() {
+      const masteredCount = deckData.filter(c => c.status === "mastered").length;
+      document.getElementById("mastery-counter").innerText = masteredCount;
+      document.getElementById("total-cards-counter").innerText = deckData.length;
+
+      const progressPercent = Math.round((masteredCount / deckData.length) * 100);
+      document.getElementById("lm-progress-fill").style.width = progressPercent + "%";
+
+      document.getElementById("queue-progress-text").innerText = (currentQueueIdx + 1) + " / " + queue.length;
+    }
+
+    function updateTierBadge(text, className) {
+      const badge = document.getElementById("tierBadgeEl");
+      badge.className = "tier-badge " + className;
+      badge.innerText = text;
+    }
+
+    function renderCurrentCard() {
+      if (currentQueueIdx >= queue.length) {
+        const unmastered = queue.filter(c => c.status !== "mastered");
+        if (unmastered.length > 0) {
+          queue = [...unmastered];
+          fisherYatesShuffle(queue);
+          currentQueueIdx = 0;
+        } else {
+          document.getElementById("quiz-card-container").style.display = "none";
+          document.getElementById("completionBanner").style.display = "block";
+          updateHeaderStats();
+          return;
+        }
+      }
+
+      updateHeaderStats();
+      setupStage1();
+    }
+
+    // ==========================================
+    // STAGE 1: MULTIPLE CHOICE (Within-deck Distractors)
+    // ==========================================
+    function setupStage1() {
+      currentStage = 1;
+      updateTierBadge("Stage 1: Multiple Choice", "t1-badge");
+      document.getElementById("tier1Section").style.display = "block";
+      document.getElementById("tier2Section").style.display = "none";
+
+      const card = queue[currentQueueIdx];
+      document.getElementById("t1QuestionText").innerText = card.q;
+      const feedback = document.getElementById("t1FeedbackBox");
+      feedback.style.display = "none";
+      feedback.innerHTML = "";
+
+      const otherAnswers = deckData
+        .filter(c => c.a !== card.a)
+        .map(c => c.a);
+      
+      fisherYatesShuffle(otherAnswers);
+      const distractors = otherAnswers.slice(0, 3);
+      
+      const options = [
+        { text: card.a, isCorrect: true },
+        ...distractors.map(d => ({ text: d, isCorrect: false }))
+      ];
+      fisherYatesShuffle(options);
+
+      const grid = document.getElementById("t1OptionsGrid");
+      grid.innerHTML = "";
+      const letters = ["A", "B", "C", "D"];
+
+      options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "mc-option-btn";
+        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span> <span>${opt.text}</span>`;
+        btn.onclick = () => handleTier1Selection(btn, opt.isCorrect, card.a);
+        grid.appendChild(btn);
+      });
+    }
+
+    function handleTier1Selection(selectedBtn, isCorrect, correctText) {
+      const allBtns = document.querySelectorAll(".mc-option-btn");
+      allBtns.forEach(b => b.disabled = true);
+
+      const feedback = document.getElementById("t1FeedbackBox");
+      feedback.style.display = "block";
+
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        feedback.className = "feedback-banner feedback-success";
+        feedback.innerHTML = `
+          <strong>✅ Correct!</strong> Recognized definition from source notes.<br>
+          <button class="btn btn-primary" id="t1AdvanceBtn" style="margin-top: 12px;" onclick="setupStage2()">Advance to Free Active Recall →</button>
+        `;
+        setTimeout(() => {
+          const adv = document.getElementById("t1AdvanceBtn");
+          if (adv) adv.focus();
+        }, 50);
+      } else {
+        selectedBtn.classList.add("incorrect");
+        allBtns.forEach(b => {
+          if (b.innerText.includes(correctText.replace(/<[^>]+>/g, "").slice(0, 30))) {
+            b.classList.add("correct");
+          }
+        });
+        feedback.className = "feedback-banner feedback-warning";
+        feedback.innerHTML = `
+          <strong>💡 Notice the distinction from source notes.</strong> This card has been pushed back in your queue for practice.<br>
+          <button class="btn" style="margin-top: 12px;" onclick="requeueCurrentAndProceedToStage2()">Continue to Active Recall</button>
+        `;
+      }
+    }
+
+    function requeueCurrentAndProceedToStage2() {
+      const current = queue[currentQueueIdx];
+      queue.push(current);
+      setupStage2();
+    }
+
+    // ==========================================
+    // STAGE 2: FREE ACTIVE RECALL (Side-by-Side)
+    // ==========================================
+    function setupStage2() {
+      currentStage = 2;
+      updateTierBadge("Stage 2: Free Active Recall", "t2-badge");
+      document.getElementById("tier1Section").style.display = "none";
+      document.getElementById("tier2Section").style.display = "block";
+
+      const card = queue[currentQueueIdx];
+      document.getElementById("t2QuestionText").innerText = card.q;
+
+      const input = document.getElementById("t2RecallInput");
+      input.value = "";
+      input.disabled = false;
+
+      document.getElementById("t2ActionContainer").style.display = "block";
+      document.getElementById("t2SideBySideContainer").style.display = "none";
+      setTimeout(() => input.focus(), 60);
+    }
+
+    function verifyActiveRecall() {
+      const input = document.getElementById("t2RecallInput");
+      const userText = input.value.trim();
+      if (!userText) {
+        alert("Please write your recall response before comparing.");
+        return;
+      }
+
+      input.disabled = true;
+      const card = queue[currentQueueIdx];
+      document.getElementById("t2UserResponse").innerText = userText;
+      document.getElementById("t2SourceResponse").innerHTML = card.a;
+
+      document.getElementById("t2ActionContainer").style.display = "none";
+      document.getElementById("t2SideBySideContainer").style.display = "block";
+    }
+
+    function resolveCardMastery(isMastered) {
+      const card = queue[currentQueueIdx];
+      if (isMastered) {
+        card.status = "mastered";
+      } else {
+        card.status = "learning";
+        const remaining = queue.slice(currentQueueIdx + 1);
+        const insertPos = Math.min(3, remaining.length);
+        remaining.splice(insertPos, 0, card);
+        queue = queue.slice(0, currentQueueIdx + 1).concat(remaining);
+      }
+
+      saveStatusToStorage();
+      currentQueueIdx++;
+      renderCurrentCard();
+    }
+
+    function saveStatusToStorage() {
+      try {
+        const saved = {};
+        deckData.forEach((c, idx) => {
+          saved[idx] = c.status;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      } catch (e) {}
+    }
+
+    window.addEventListener("DOMContentLoaded", initLearnSession);
+  </script>
+
+</body>
+</html>

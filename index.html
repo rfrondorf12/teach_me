@@ -37,7 +37,7 @@
           <p style="font-size: 0.9rem;">Your interactive study workspace for notes and spaced repetition decks, generated straight from your vault.</p>
         </div>
         <div>
-          <a href="flashcards-neural-networks.html" class="btn btn-teal">⚡ Study Active Deck</a>
+          <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">⚡ Study Active Deck</a>
         </div>
       </section>
 
@@ -54,20 +54,20 @@
 
           <div class="mastery-info-details">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-              <span class="pill-badge pill-ai">Artificial Intelligence</span>
+              <span class="pill-badge pill-art">Art</span>
               <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: bold; color: #777;">Recently Added Deck</span>
             </div>
-            <h3>Neural Networks</h3>
+            <h3>Cinematic Storyboarding &amp; Motion Graphics</h3>
             <div class="mastery-stats-text">
-              <span>🎯 <strong id="dash-mastered-count">0</strong> of <strong>32</strong> Mastered</span>
+              <span>🎯 <strong id="dash-mastered-count">0</strong> of <strong>30</strong> Mastered</span>
               <span>•</span>
-              <span>⏳ <strong id="dash-unmastered-count">32</strong> Remaining</span>
+              <span>⏳ <strong id="dash-unmastered-count">30</strong> Remaining</span>
             </div>
           </div>
         </div>
 
         <div>
-          <a href="flashcards-neural-networks.html" class="btn btn-teal">⚡ Study Deck (32 Cards)</a>
+          <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">⚡ Study Deck (30 Cards)</a>
         </div>
       </div>
 
@@ -79,7 +79,7 @@
             <div class="folder-icon" style="background-color: var(--folder-art); color: #fff;">AR</div>
             <strong>Art</strong>
           </div>
-          <p style="font-size: 0.8rem; color: #555;">1 Note • 1 Flashcard Deck</p>
+          <p style="font-size: 0.8rem; color: #555;">2 Notes • 2 Flashcard Decks</p>
         </a>
 
         <a href="folders.html#folder-ai" class="folder-card" style="border-top: 6px solid var(--folder-ai-pink);">
@@ -134,6 +134,16 @@
       <!-- RECENT ADDITIONS -->
       <div class="neo-box" style="margin-top: 24px;">
         <h3 style="margin-bottom: 12px;">Recent Additions</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 2px solid var(--border-color); border-radius: 6px; background-color: #f0faf9; border-left: 6px solid var(--folder-art); margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <strong>cinematic_storyboarding_and_motion_graphics</strong> <span class="pill-badge pill-art">Art</span>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">Source: Cinematic Storyboarding, Motion Graphics Pipelines, and Visual Narrative Architecture.pdf • 30 Cards Generated</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <a href="note-cinematic-storyboarding.html" class="btn btn-primary">Notes</a>
+            <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">Flashcards</a>
+          </div>
+        </div>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 2px solid var(--border-color); border-radius: 6px; background-color: #fff9fb; border-left: 6px solid var(--folder-ai-pink); margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
           <div>
             <strong>animation_and_artificial_intelligence</strong> <span class="pill-badge pill-ai">Artificial Intelligence</span>
@@ -187,12 +197,12 @@
     // Read saved progress from localStorage if present
     window.addEventListener("DOMContentLoaded", () => {
       try {
-        const savedProgress = localStorage.getItem("teachme_progress_neural_networks");
+        const savedProgress = localStorage.getItem("teachme_progress_cinematic_storyboarding");
         let mastered = 0;
-        const total = 32;
+        const total = 30;
         if (savedProgress) {
           const parsed = JSON.parse(savedProgress);
-          mastered = parsed.filter(c => c.status === "mastered").length;
+          mastered = Object.values(parsed).filter(st => st === "mastered").length;
         }
         const unmastered = total - mastered;
         const pct = Math.round((mastered / total) * 100);

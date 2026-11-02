@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards — Cinematic Storyboarding &amp; Motion Graphics Pipelines</title>
+  <!-- Link to shared CSS file per github_site_instructions -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Spaced Repetition Reference Table Styling */
+    .deck-reference-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    .deck-reference-table th, 
+    .deck-reference-table td {
+      border: 1.5px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .deck-reference-table th {
+      background-color: #faf5f1;
+      font-weight: bold;
+    }
+    .table-status-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border: 1px solid var(--border-color);
+    }
+    .status-new { background-color: #e2e8f0; color: #334155; }
+    .status-learning { background-color: #fef08a; color: #854d0e; }
+    .status-mastered { background-color: #bbf7d0; color: #166534; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Website Navigation Bar -->
+  <header class="site-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="brand-group">
+        <div class="brand-badge">👾 TEACH ME HUB</div>
+      </a>
+
+      <nav>
+        <ul class="nav-links-row">
+          <li><a href="index.html" class="nav-link-btn">🏠 Dashboard</a></li>
+          <li><a href="folders.html" class="nav-link-btn">📁 Subject Folders</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="pill-badge pill-art">Art</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <div class="content-container">
+
+      <section class="neo-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span class="pill-badge pill-art">Art</span>
+            <h2 style="margin-top: 6px;">Cinematic Storyboarding &amp; Motion Graphics — Flashcards</h2>
+          </div>
+          <div>
+            <a href="note-cinematic-storyboarding.html" class="btn btn-primary">📝 Linked Note</a>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold;">
+            <span>Card <span id="card-index-indicator">1</span> of <span id="card-total-indicator">30</span></span>
+            <span>Mastery: <span id="mastery-percent">0%</span></span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Flashcard -->
+        <div class="flashcard-wrapper" onclick="toggleCardFlip()">
+          <div class="flashcard" id="main-flashcard">
+            <div class="card-face card-front">
+              <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span class="pill-badge pill-art">Question / Term</span>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-sm" onclick="event.stopPropagation(); showCardHint();" title="Get a hint">💡 Hint</button>
+                  <button class="btn btn-sm btn-circle" id="starCardBtn" onclick="event.stopPropagation(); toggleStarCard();" title="Star this card">☆</button>
+                </div>
+              </div>
+              <div class="card-body-text" id="card-front-text">Loading card...</div>
+              <div class="card-hint">👆 Click anywhere to flip</div>
+            </div>
+            <div class="card-face card-back">
+              <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span class="pill-badge" style="background-color: #d4edda; color: #155724; border: 1.5px solid #c3e6cb;">Answer / Definition</span>
+                <div style="font-size: 0.75rem; font-weight: bold; color: #777;">Click to flip front</div>
+              </div>
+              <div class="card-body-text" id="card-back-text">Loading answer...</div>
+              <div class="card-hint">👆 Click to flip back</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap;">
+          <div class="card-nav-pill">
+            <button onclick="prevCard()" title="Previous Card">←</button>
+            <span style="font-size: 0.95rem; min-width: 65px; text-align: center;">
+              <span id="card-nav-curr">1</span> / <span id="card-nav-total">30</span>
+            </span>
+            <button onclick="nextCard()" title="Next Card">→</button>
+          </div>
+
+          <button class="btn btn-primary" onclick="toggleCardFlip()">🔄 Flip</button>
+          <button class="btn" onclick="shuffleCards()">🔀 Shuffle</button>
+          <a href="learn-cinematic-storyboarding.html" class="btn btn-teal" style="font-weight: 800; border: 2.5px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); text-decoration: none; display: inline-flex; align-items: center;">🚀 Learn Mode</a>
+        </div>
+
+        <!-- Mastery Rating Buttons -->
+        <div style="display: flex; justify-content: center; gap: 14px; margin-top: 20px;">
+          <button class="btn" style="border-color: #fbb040;" onclick="markCardStatus('learning')">⏳ Still Learning</button>
+          <button class="btn" style="border-color: #39b54a; background-color: #eafaf1;" onclick="markCardStatus('mastered')">✅ Mastered</button>
+        </div>
+
+      </section>
+
+      <!-- Questions & Answers Reference Table -->
+      <section class="neo-box" style="margin-top: 28px;">
+        <h3>📖 Questions &amp; Answers Reference Table</h3>
+        <p style="font-size: 0.85rem; color: #555; margin-top: 4px;">Complete directory of all 30 card pairs from the study notes, with real-time mastery tracking.</p>
+        
+        <div style="overflow-x: auto;">
+          <table class="deck-reference-table" id="reference-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">#</th>
+                <th style="width: 35%;">Question / Term</th>
+                <th>Source Answer / Definition</th>
+                <th style="width: 120px;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="reference-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Teach Me Hub • Hosted with GitHub Pages</p>
+  </footer>
+
+  <script>
+    const deckData = [
+      {
+        "q": "What is a Close-Up Shot in cinematic framing?",
+        "a": "A framing technique focusing tightly on a specific subject, such as a character's face, to emphasize emotional nuance, reaction, or fine detail, contrasted against wider environmental perspectives.",
+        "hint": "Tight focus on emotional nuance or facial reaction.",
+        "status": "new",
+        "targetTerm": "Close-Up Shot",
+        "keyTerm": "Close-Up Shot"
+      },
+      {
+        "q": "What is a Point of View (POV) Shot?",
+        "a": "A subjective camera angle positioned to replicate the precise optical perspective of a character, allowing the audience to see the scene directly through that character's eyes.",
+        "hint": "Camera through a character's optical perspective.",
+        "status": "new",
+        "targetTerm": "Point of View (POV) Shot",
+        "keyTerm": "Point of View (POV) Shot"
+      },
+      {
+        "q": "What is a Wide Shot?",
+        "a": "A wide-angle framing that captures the subject's entire body along with a significant portion of the surrounding environment, establishing spatial relationships, scale, and geographical context.",
+        "hint": "Entire body plus surrounding environment.",
+        "status": "new",
+        "targetTerm": "Wide Shot",
+        "keyTerm": "Wide Shot"
+      },
+      {
+        "q": "What is a Medium Shot?",
+        "a": "A transitional framing that captures a character typically from the waist or torso upward, striking a balance between facial expression and bodily gesture without displaying the full figure.",
+        "hint": "Waist or torso upward framing.",
+        "status": "new",
+        "targetTerm": "Medium Shot",
+        "keyTerm": "Medium Shot"
+      },
+      {
+        "q": "How do filmmakers generate narrative suspense?",
+        "a": "By deliberately pausing, decelerating, or withholding the decisive action immediately prior to the climax or full revelation of a scene.",
+        "hint": "Pausing or decelerating before decisive action.",
+        "status": "new",
+        "targetTerm": "narrative suspense",
+        "keyTerm": "narrative suspense"
+      },
+      {
+        "q": "What is the foundational premise of dramatic theory?",
+        "a": "The foundational premise of dramatic theory establishes that the essence of drama is action.",
+        "hint": "The core essence of drama.",
+        "status": "new",
+        "targetTerm": "action",
+        "keyTerm": "dramatic theory"
+      },
+      {
+        "q": "How does a narrative achieve a complex narrative structure?",
+        "a": "By adhering to a structured arc of events driven by conflict, plausible developments, and the subversion of audience expectations.",
+        "hint": "Conflict, plausibility, and expectation subversion.",
+        "status": "new",
+        "targetTerm": "complex narrative structure",
+        "keyTerm": "complex narrative structure"
+      },
+      {
+        "q": "What is the Rule of Threes in storytelling and pattern recognition?",
+        "a": "The first two items establish an expected pattern or rhythm, while the third item ruptures that pattern with an unexpected twist or surprise ending.",
+        "hint": "Two items establish pattern, third ruptures it.",
+        "status": "new",
+        "targetTerm": "Rule of Threes",
+        "keyTerm": "Rule of Threes"
+      },
+      {
+        "q": "What is Scenario Planning in strategic foresight?",
+        "a": "A strategic foresight methodology that evaluates historical patterns, current trends, and structural shifts to anticipate divergent potential futures across probable, plausible, possible, and wildcard horizons.",
+        "hint": "Foresight evaluating trends to anticipate futures.",
+        "status": "new",
+        "targetTerm": "Scenario Planning",
+        "keyTerm": "Scenario Planning"
+      },
+      {
+        "q": "What are Wildcard Scenarios in foresight frameworks?",
+        "a": "Low-probability, high-impact disruptions that push brainstorming beyond conventional assumptions, forcing designers to develop resilient problem-solving models.",
+        "hint": "Low-probability, high-impact disruptions.",
+        "status": "new",
+        "targetTerm": "Wildcard Scenarios",
+        "keyTerm": "Wildcard Scenarios"
+      },
+      {
+        "q": "What historical innovation is Webb Smith credited with at Walt Disney Studios?",
+        "a": "Inventing the modern storyboard by pinning sequential concept sketches to studio boards during the production of The Three Little Pigs.",
+        "hint": "Pinning sequential sketches for The Three Little Pigs.",
+        "status": "new",
+        "targetTerm": "Webb Smith",
+        "keyTerm": "Webb Smith"
+      },
+      {
+        "q": "What 1929 comic strip adaptation catalyzed the cinematic storyboard format at Fleischer Studios?",
+        "a": "New York animators adapted sequential illustrative techniques directly from Popeye comic strips, catalyzing the storyboard format prior to its adoption by Disney.",
+        "hint": "1929 New York animators and Popeye comic strips.",
+        "status": "new",
+        "targetTerm": "Fleischer Studios",
+        "keyTerm": "Fleischer Studios"
+      },
+      {
+        "q": "What is the Frame Within a Frame compositional technique?",
+        "a": "Placing an interior structural boundary—such as an illuminated doorway, window frame, or architectural portal—inside the cinematic camera frame to direct viewer focus and create layered depth.",
+        "hint": "Interior architectural boundary directing viewer focus.",
+        "status": "new",
+        "targetTerm": "Frame Within a Frame",
+        "keyTerm": "Frame Within a Frame"
+      },
+      {
+        "q": "Why did Alfred Hitchcock enforce exact frame-to-shot storyboard discipline on films like The Birds?",
+        "a": "Comprehensive pre-visualization avoided operational delays and financial waste on set, where technical crews exceeding 100 individuals generated high hourly production costs.",
+        "hint": "Avoiding delays with crews exceeding 100 individuals.",
+        "status": "new",
+        "targetTerm": "pre-visualization",
+        "keyTerm": "Alfred Hitchcock"
+      },
+      {
+        "q": "How did storyboard artists construct perspective in the Jurassic Park air duct sequence?",
+        "a": "Storyboard artists employed linear perspective grids across ceiling tiles, canting the camera angle off-axis to create immediate atmospheric suspense, spatial instability, and kinetic tension.",
+        "hint": "Linear ceiling grids and canted off-axis angles.",
+        "status": "new",
+        "targetTerm": "perspective grids",
+        "keyTerm": "Jurassic Park"
+      },
+      {
+        "q": "Why do Adobe Premiere Pro and After Effects utilize dynamic media linking instead of file embedding?",
+        "a": "Because of large media file sizes; dynamic linking references absolute directory paths, preventing bloated project files while requiring file paths to remain unchanged.",
+        "hint": "Large media file sizes and absolute directory paths.",
+        "status": "new",
+        "targetTerm": "dynamic media linking",
+        "keyTerm": "dynamic media linking"
+      },
+      {
+        "q": "How should Adobe Illustrator vector graphics be imported into After Effects to preserve discrete layers?",
+        "a": "Import files as Composition - Retain Layer Sizes rather than standard Footage to preserve discrete layers, original bounding boxes, and layer-specific anchor points.",
+        "hint": "Composition - Retain Layer Sizes.",
+        "status": "new",
+        "targetTerm": "Composition - Retain Layer Sizes",
+        "keyTerm": "Import Settings"
+      },
+      {
+        "q": "What standard composition specifications are established for After Effects motion projects?",
+        "a": "Landscape resolution of 1920 × 1080 pixels, frame rate of 30 fps, initial duration of 20 seconds 0 frames (timecode 20:00), and a solid black background.",
+        "hint": "1080p, 30 fps, 20 seconds duration.",
+        "status": "new",
+        "targetTerm": "composition specifications",
+        "keyTerm": "Composition Setup"
+      },
+      {
+        "q": "What five transformation properties comprise the PARTS acronym in After Effects?",
+        "a": "Position (P), Anchor Point (A), Rotation (R), Transparency / Opacity (T), and Scale (S).",
+        "hint": "P-A-R-T-S layer properties.",
+        "status": "new",
+        "targetTerm": "PARTS",
+        "keyTerm": "PARTS"
+      },
+      {
+        "q": "What does keyboard shortcut U do in Adobe After Effects?",
+        "a": "Pressing U with a layer selected instantly isolates and reveals only those properties containing active keyframes; pressing U again closes the property tree.",
+        "hint": "Isolates and reveals active keyframe properties.",
+        "status": "new",
+        "targetTerm": "Shortcut U",
+        "keyTerm": "Shortcut U"
+      },
+      {
+        "q": "What happens if you click the stopwatch icon a second time on an After Effects property?",
+        "a": "Clicking the stopwatch a second time permanently purges and deletes all active keyframes across that property track.",
+        "hint": "Permanently purges all active keyframes.",
+        "status": "new",
+        "targetTerm": "stopwatch icon",
+        "keyTerm": "Stopwatch Activation"
+      },
+      {
+        "q": "What keyboard shortcuts navigate the playhead between keyframes in After Effects?",
+        "a": "Shortcut J jumps backward to the immediately preceding keyframe; shortcut K jumps forward to the subsequent keyframe.",
+        "hint": "J (backward) and K (forward).",
+        "status": "new",
+        "targetTerm": "J and K",
+        "keyTerm": "Keyframe Navigation"
+      },
+      {
+        "q": "What do keyboard shortcuts Alt + [ and Alt + ] execute on the timeline?",
+        "a": "Alt + [ trims the layer's In-point to the current playhead position; Alt + ] trims the layer's Out-point without corrupting or deleting active keyframes.",
+        "hint": "Trims In-point and Out-point to playhead.",
+        "status": "new",
+        "targetTerm": "In/Out Point Trimming",
+        "keyTerm": "Timeline Shortcuts"
+      },
+      {
+        "q": "What are the three rotational axes available when converting a layer to a 3D Layer?",
+        "a": "x-Rotation (pitches forward/backward), y-Rotation (yaw spins vertically), and z-Rotation (rolls clockwise/counter-clockwise on a flat plane).",
+        "hint": "x-axis pitch, y-axis yaw, z-axis roll.",
+        "status": "new",
+        "targetTerm": "3D Layer Switch",
+        "keyTerm": "3D Layer"
+      },
+      {
+        "q": "What is the difference between Linear Keyframes and Bézier Keyframes?",
+        "a": "Linear keyframes (diamond icons) move at rigid uniform velocity with abrupt stops; Bézier keyframes (hourglass icons) use polynomial algorithms to ramp speed for cushioned physical motion.",
+        "hint": "Diamond uniform velocity vs. hourglass cushioned motion.",
+        "status": "new",
+        "targetTerm": "Bézier Keyframes",
+        "keyTerm": "Mathematical Interpolation"
+      },
+      {
+        "q": "How are selected keyframes converted to Easy Ease in After Effects?",
+        "a": "Right-click and navigate to Keyframe Assistant -> Easy Ease, or press keyboard shortcut F9.",
+        "hint": "Keyframe Assistant -> Easy Ease or F9.",
+        "status": "new",
+        "targetTerm": "Easy Ease",
+        "keyTerm": "Easy Ease"
+      },
+      {
+        "q": "What is the difference between the Action Safe Line and the Title Safe Line?",
+        "a": "The Action Safe Line is the outer perimeter ensuring visual elements avoid display edge clipping; Title Safe Line is the inner perimeter guaranteeing typography and logos remain legible across aspect ratios.",
+        "hint": "Outer perimeter for action vs. inner perimeter for typography.",
+        "status": "new",
+        "targetTerm": "Action Safe Line",
+        "keyTerm": "Broadcast Safe Margins"
+      },
+      {
+        "q": "Why must editable typography be converted via Create Outlines (Ctrl/Cmd + Shift + O) before After Effects export?",
+        "a": "It converts editable text into static vector geometry, preventing missing font warnings and formatting corruption on third-party editorial systems.",
+        "hint": "Transforms text into static vector geometry.",
+        "status": "new",
+        "targetTerm": "Create Outlines",
+        "keyTerm": "Typography Outlining"
+      },
+      {
+        "q": "Why must path strokes be expanded via Outline Stroke in Illustrator for motion graphics?",
+        "a": "Unexpanded strokes scale disproportionately when transformed inside After Effects, distorting the intended visual stroke weight.",
+        "hint": "Prevents disproportionate stroke weight distortion during scaling.",
+        "status": "new",
+        "targetTerm": "Outline Stroke",
+        "keyTerm": "Stroke Expansion"
+      },
+      {
+        "q": "What is the dual file archival strategy for vector motion graphics preparation?",
+        "a": "Maintaining one un-outlined master Illustrator file preserving live, editable text layers alongside a secondary production-ready file containing fully outlined vector artwork.",
+        "hint": "Un-outlined master text file plus production outlined file.",
+        "status": "new",
+        "targetTerm": "dual file archival strategy",
+        "keyTerm": "Dual File Archival"
+      }
+    ];
+
+    const STORAGE_KEY = "teachme_progress_cinematic_storyboarding";
+    let currentIndex = 0;
+    let isFlipped = false;
+    let starredCards = {};
+
+    function initDeck() {
+      // Load saved statuses
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        deckData.forEach((c, idx) => {
+          if (saved[idx]) c.status = saved[idx];
+        });
+      } catch (e) {}
+
+      document.getElementById("card-total-indicator").innerText = deckData.length;
+      document.getElementById("card-nav-total").innerText = deckData.length;
+      renderCard();
+      renderReferenceTable();
+      updateProgress();
+    }
+
+    function renderCard() {
+      const card = deckData[currentIndex];
+      const cardEl = document.getElementById("main-flashcard");
+      cardEl.classList.remove("flipped");
+      isFlipped = false;
+
+      document.getElementById("card-front-text").innerText = card.q;
+      document.getElementById("card-back-text").innerText = card.a;
+
+      document.getElementById("card-index-indicator").innerText = currentIndex + 1;
+      document.getElementById("card-nav-curr").innerText = currentIndex + 1;
+
+      const starBtn = document.getElementById("starCardBtn");
+      if (starredCards[currentIndex]) {
+        starBtn.innerText = "★";
+        starBtn.style.color = "#d97706";
+      } else {
+        starBtn.innerText = "☆";
+        starBtn.style.color = "inherit";
+      }
+    }
+
+    function toggleCardFlip() {
+      const cardEl = document.getElementById("main-flashcard");
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        cardEl.classList.add("flipped");
+      } else {
+        cardEl.classList.remove("flipped");
+      }
+    }
+
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % deckData.length;
+      renderCard();
+    }
+
+    function prevCard() {
+      currentIndex = (currentIndex - 1 + deckData.length) % deckData.length;
+      renderCard();
+    }
+
+    function shuffleCards() {
+      for (let i = deckData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deckData[i], deckData[j]] = [deckData[j], deckData[i]];
+      }
+      currentIndex = 0;
+      renderCard();
+      renderReferenceTable();
+    }
+
+    function showCardHint() {
+      const card = deckData[currentIndex];
+      alert("💡 Hint: " + card.hint);
+    }
+
+    function toggleStarCard() {
+      starredCards[currentIndex] = !starredCards[currentIndex];
+      renderCard();
+    }
+
+    function markCardStatus(status) {
+      deckData[currentIndex].status = status;
+      saveProgress();
+      updateProgress();
+      renderReferenceTable();
+      nextCard();
+    }
+
+    function saveProgress() {
+      const saved = {};
+      deckData.forEach((c, idx) => {
+        saved[idx] = c.status;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    }
+
+    function updateProgress() {
+      const mastered = deckData.filter(c => c.status === "mastered").length;
+      const pct = Math.round((mastered / deckData.length) * 100);
+      document.getElementById("mastery-percent").innerText = pct + "%";
+      document.getElementById("progress-fill").style.width = pct + "%";
+    }
+
+    function renderReferenceTable() {
+      const tbody = document.getElementById("reference-tbody");
+      tbody.innerHTML = "";
+      deckData.forEach((c, idx) => {
+        const tr = document.createElement("tr");
+        
+        let statusClass = "status-new";
+        let statusLabel = "New";
+        if (c.status === "learning") {
+          statusClass = "status-learning";
+          statusLabel = "Still Learning";
+        } else if (c.status === "mastered") {
+          statusClass = "status-mastered";
+          statusLabel = "Mastered";
+        }
+
+        tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td><strong>${c.q}</strong></td>
+          <td>${c.a}</td>
+          <td><span class="table-status-pill ${statusClass}">${statusLabel}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+      if (e.key === "ArrowRight" || e.key === "n") nextCard();
+      if (e.key === "ArrowLeft" || e.key === "p") prevCard();
+      if (e.key === " " || e.key === "f") {
+        e.preventDefault();
+        toggleCardFlip();
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", initDeck);
+  </script>
+
+</body>
+</html>
