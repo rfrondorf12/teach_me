@@ -12,7 +12,7 @@
       margin: 0 auto;
       font-family: "ff-seria-sans", system-ui, -apple-system, sans-serif;
       line-height: 1.6;
-      color: #1e293b;
+      color: var(--text-main);
     }
     .round-badge {
       display: inline-flex;
@@ -20,20 +20,21 @@
       gap: 6px;
       padding: 6px 14px;
       border-radius: 9999px;
-      font-weight: 800;
+      font-weight: 700;
       font-size: 0.85rem;
       border: 2px solid var(--border-color);
       box-shadow: 2px 2px 0 var(--border-color);
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .r1-badge { background-color: var(--accent-yellow); color: #240404; }
-    .r2-badge { background-color: var(--accent-orange); color: #240404; }
-    .r3-badge { background-color: var(--accent-teal); color: #240404; }
+    .r1-badge { background-color: var(--golden-chamomile); color: var(--text-main); }
+    .r2-badge { background-color: var(--almond-cream); color: #78521a; }
+    .r3-badge { background-color: var(--sage-light); color: var(--sage-dark); }
 
     .lm-progress-bar {
       width: 100%;
-      height: 14px;
-      background-color: #e2e8f0;
+      height: 12px;
+      background-color: var(--sage-light);
       border: 2px solid var(--border-color);
       border-radius: 9999px;
       overflow: hidden;
@@ -41,17 +42,17 @@
     }
     .lm-progress-fill {
       height: 100%;
-      background-color: var(--accent-teal);
+      background-color: var(--sage-primary);
       width: 0%;
       transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .quiz-card {
       background: #ffffff;
-      border: 3px solid var(--border-color);
+      border: 2.5px solid var(--border-color);
       border-radius: 14px;
       padding: 28px;
-      box-shadow: 0 10px 24px rgba(36, 4, 4, 0.1), 5px 5px 0px var(--border-color);
+      box-shadow: 0 10px 24px rgba(43, 51, 43, 0.08), 4px 4px 0px var(--border-color);
       margin-top: 16px;
       transform: rotate(-0.3deg);
       transition: transform 0.2s ease;
@@ -76,25 +77,25 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 2px 6px rgba(36, 4, 4, 0.08), 3px 3px 0 var(--border-color);
+      box-shadow: 0 2px 6px rgba(43, 51, 43, 0.06), 2.5px 2.5px 0 var(--border-color);
     }
     .mc-option-btn:hover:not(:disabled) {
-      background-color: #f8fafc;
+      background-color: var(--sage-light);
       transform: translate(-1px, -1px);
-      box-shadow: 0 4px 10px rgba(36, 4, 4, 0.12), 4px 4px 0 var(--border-color);
+      box-shadow: 0 4px 10px rgba(43, 51, 43, 0.1), 3.5px 3.5px 0 var(--border-color);
     }
     .mc-option-btn:disabled {
       cursor: default;
     }
     .mc-option-btn.correct {
-      background-color: #dcfce7 !important;
-      border-color: #16a34a !important;
-      color: #14532d !important;
+      background-color: #d7e8d4 !important;
+      border-color: var(--sage-primary) !important;
+      color: #1e521a !important;
     }
     .mc-option-btn.incorrect {
-      background-color: #fee2e2 !important;
-      border-color: #dc2626 !important;
-      color: #7f1d1d !important;
+      background-color: #fae4e3 !important;
+      border-color: var(--folder-math) !important;
+      color: #7f231c !important;
     }
 
     .option-letter {
@@ -105,8 +106,8 @@
       height: 28px;
       border-radius: 6px;
       border: 2px solid var(--border-color);
-      background-color: var(--bg-canvas);
-      font-weight: 800;
+      background-color: var(--almond-cream);
+      font-weight: 700;
       font-size: 0.9rem;
       flex-shrink: 0;
     }
@@ -116,11 +117,11 @@
       min-width: 120px;
       padding: 2px 14px;
       margin: 0 4px;
-      border-bottom: 3px solid var(--accent-red);
-      font-weight: 800;
-      color: var(--accent-red);
+      border-bottom: 3px solid var(--sage-primary);
+      font-weight: 700;
+      color: var(--sage-dark);
       text-align: center;
-      background-color: rgba(232, 46, 37, 0.06);
+      background-color: var(--sage-light);
       border-radius: 4px;
     }
 
@@ -133,14 +134,14 @@
       line-height: 1.5;
     }
     .feedback-success {
-      background-color: #dcfce7;
-      border-color: #16a34a;
-      color: #14532d;
+      background-color: #d7e8d4;
+      border-color: var(--sage-primary);
+      color: #1e521a;
     }
     .feedback-warning {
-      background-color: #fef3c7;
-      border-color: #d97706;
-      color: #78350f;
+      background-color: var(--almond-cream);
+      border-color: var(--folder-history);
+      color: #78521a;
     }
 
     .side-by-side-grid {
@@ -153,7 +154,7 @@
       padding: 16px;
       border: 2px solid var(--border-color);
       border-radius: 10px;
-      background: #faf5f1;
+      background: #fafbf8;
     }
   </style>
 </head>
@@ -204,7 +205,7 @@
         <div class="lm-progress-bar">
           <div class="lm-progress-fill" id="lm-progress-fill"></div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #555; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; gap: 8px;">
           <span>Rounds of 7 Questions · Round 1: Multiple Choice → Round 2: Fill in Blank → Round 3: Active Recall</span>
           <button class="btn btn-sm" onclick="restartLearnSession()" title="Restart session from scratch">🔄 Reset Session</button>
         </div>
@@ -216,28 +217,28 @@
         <!-- Header badge row -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
           <span id="roundBadgeEl" class="round-badge r1-badge">Round 1: Multiple Choice</span>
-          <span style="font-size: 0.85rem; font-weight: bold; color: #64748b;" id="cardStageDesc">Cognitive Recognition</span>
+          <span style="font-size: 0.85rem; font-weight: bold; color: var(--text-muted);" id="cardStageDesc">Cognitive Recognition</span>
         </div>
 
         <!-- Stage 1: Multiple Choice (Recognition) -->
         <div id="stage1Section">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
             Round 1 · Select the Correct Definition
           </div>
-          <h3 id="s1QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 20px; color: #0f172a;"></h3>
+          <h3 id="s1QuestionText" style="font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 20px; color: var(--text-main);"></h3>
           <div id="s1OptionsGrid" style="display: grid; gap: 12px;"></div>
           <div id="s1FeedbackBox" class="feedback-banner" style="display: none;"></div>
         </div>
 
         <!-- Stage 2: Fill in the Blank (Cued Recall) -->
         <div id="stage2Section" style="display: none;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #d97706; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #78521a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
             Round 2 · Fill in the Blank (Cued Recall)
           </div>
-          <h3 id="s2QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 14px; color: #0f172a;"></h3>
-          <div id="s2ClozeSentence" style="font-size: 1.05rem; padding: 18px; background: #faf5f1; border: 2px dashed var(--border-color); border-radius: 10px; margin-bottom: 18px; line-height: 1.6;"></div>
+          <h3 id="s2QuestionText" style="font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 14px; color: var(--text-main);"></h3>
+          <div id="s2ClozeSentence" style="font-size: 1.05rem; padding: 18px; background: var(--bg-canvas); border: 2px dashed var(--border-color); border-radius: 10px; margin-bottom: 18px; line-height: 1.6;"></div>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="s2Input" placeholder="Type the missing term..." style="flex: 1; min-width: 240px; padding: 12px 16px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; outline: none;">
+            <input type="text" id="s2Input" placeholder="Type the missing term..." style="flex: 1; min-width: 240px; padding: 12px 16px; font-size: 1rem; border: 2px solid var(--border-color); border-radius: 9999px; font-family: inherit; outline: none; background: #fff;">
             <button class="btn btn-primary" id="s2SubmitBtn" onclick="submitStage2Cloze()">Submit Answer</button>
           </div>
           <div id="s2FeedbackBox" class="feedback-banner" style="display: none;"></div>
@@ -245,17 +246,17 @@
 
         <!-- Stage 3: Free Active Recall & Side-by-Side Comparison -->
         <div id="stage3Section" style="display: none;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--sage-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
             Round 3 · Complete Active Recall (Cognitive Generation)
           </div>
-          <h3 id="s3QuestionText" style="font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 12px; color: #0f172a;"></h3>
-          <p style="font-size: 0.9rem; color: #475569; margin-bottom: 14px;">
+          <h3 id="s3QuestionText" style="font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 12px; color: var(--text-main);"></h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
             Explain this concept completely in your own words without looking at your notes:
           </p>
-          <textarea id="s3RecallInput" rows="5" placeholder="Type your full recall explanation here..." style="width: 100%; padding: 14px; font-size: 1rem; border: 2.5px solid var(--border-color); border-radius: 8px; font-family: inherit; line-height: 1.6; outline: none; margin-bottom: 16px; box-sizing: border-box;"></textarea>
+          <textarea id="s3RecallInput" rows="5" placeholder="Type your full recall explanation here..." style="width: 100%; padding: 14px; font-size: 1rem; border: 2px solid var(--border-color); border-radius: 10px; font-family: inherit; line-height: 1.6; outline: none; margin-bottom: 16px; box-sizing: border-box; background: #fff;"></textarea>
           
           <div id="s3ActionContainer">
-            <button class="btn btn-primary" id="s3VerifyBtn" onclick="verifyStage3Recall()" style="padding: 12px 24px; font-size: 1rem;">
+            <button class="btn btn-primary" id="s3VerifyBtn" onclick="verifyStage3Recall()" style="padding: 12px 24px; font-size: 0.95rem;">
               Compare Side-by-Side with Source Notes →
             </button>
           </div>
@@ -264,30 +265,30 @@
           <div id="s3SideBySideContainer" style="display: none;">
             <div class="side-by-side-grid">
               <div class="side-box">
-                <div style="font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 8px;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">
                   ✍️ What You Typed:
                 </div>
-                <div id="s3UserResponse" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #0f172a;"></div>
+                <div id="s3UserResponse" style="font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: var(--text-main);"></div>
               </div>
-              <div class="side-box" style="background: #ffffff; border-color: #16a34a;">
-                <div style="font-size: 0.85rem; font-weight: 800; color: #16a34a; text-transform: uppercase; margin-bottom: 8px;">
+              <div class="side-box" style="background: #ffffff; border-color: var(--sage-primary);">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--sage-primary); text-transform: uppercase; margin-bottom: 8px;">
                   📖 Source Note Definition:
                 </div>
-                <div id="s3SourceResponse" style="font-size: 0.95rem; line-height: 1.6; color: #0f172a;"></div>
+                <div id="s3SourceResponse" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main);"></div>
               </div>
             </div>
 
             <!-- Self-evaluation prompt -->
-            <div style="margin-top: 24px; padding: 20px; background: #f8fafc; border: 2px solid var(--border-color); border-radius: 10px; text-align: center;">
+            <div style="margin-top: 24px; padding: 20px; background: #fafbf8; border: 2px solid var(--border-color); border-radius: 10px; text-align: center;">
               <h4 style="font-size: 1.05rem; margin-bottom: 8px;">Self-Assessment: Did your answer capture the core concept?</h4>
-              <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 18px;">
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">
                 You decide your mastery. If in progress, this card returns to Fill in the Blank until mastered.
               </p>
               <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-                <button class="btn" style="border-color: var(--accent-orange); background: #fffdf5;" onclick="resolveStage3Mastery(false)">
+                <button class="btn" style="border-color: var(--folder-history); background: var(--almond-cream); color: #78521a;" onclick="resolveStage3Mastery(false)">
                   ⏳ In Progress (Return to Fill in the Blank)
                 </button>
-                <button class="btn btn-primary" style="background-color: #dcfce7; color: #14532d; border-color: #16a34a;" onclick="resolveStage3Mastery(true)">
+                <button class="btn btn-primary" onclick="resolveStage3Mastery(true)">
                   ✅ Mastered! (Card Complete)
                 </button>
               </div>
@@ -299,12 +300,12 @@
 
       <!-- Round Complete Transition Card -->
       <div id="roundTransitionCard" class="quiz-card" style="display: none; text-align: center; padding: 40px 24px;">
-        <div style="font-size: 2.5rem; margin-bottom: 10px;">🌟</div>
+        <div style="font-size: 2.5rem; margin-bottom: 10px;">🌿</div>
         <h2 id="roundTransitionTitle" style="font-size: 1.6rem; margin-bottom: 8px;">Round Complete!</h2>
-        <p id="roundTransitionSub" style="font-size: 1rem; color: #475569; max-width: 520px; margin: 0 auto 24px auto;">
+        <p id="roundTransitionSub" style="font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 24px auto;">
           You finished this round of 7 questions.
         </p>
-        <button class="btn btn-primary" id="startNextRoundBtn" onclick="startNextRound()" style="padding: 12px 28px; font-size: 1rem;">
+        <button class="btn btn-primary" id="startNextRoundBtn" onclick="startNextRound()" style="padding: 12px 28px; font-size: 0.95rem;">
           Start Next Round (7 Questions) →
         </button>
       </div>
@@ -313,7 +314,7 @@
       <div id="completionBanner" class="quiz-card" style="display: none; text-align: center; padding: 48px 24px;">
         <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
         <h2 style="font-size: 1.8rem; margin-bottom: 12px;">All Cards Mastered in Learn Mode!</h2>
-        <p style="font-size: 1.05rem; color: #475569; max-width: 540px; margin: 0 auto 28px auto;">
+        <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 28px auto;">
           You successfully navigated through Multiple Choice, Fill in the Blank, and Active Recall across the entire deck!
         </p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
@@ -561,7 +562,6 @@
       }
 
       // Select up to ROUND_SIZE cards for this round
-      // Shuffle unmastered pool to ensure variety
       const candidatePool = [...unmastered];
       fisherYatesShuffle(candidatePool);
 
@@ -577,7 +577,6 @@
 
     function renderQuestion() {
       if (questionInRoundIndex >= roundCards.length) {
-        // Round Complete!
         finishCurrentRound();
         return;
       }
@@ -592,19 +591,16 @@
       const stage = card.stage || 1;
 
       if (stage === 1) {
-        // Stage 1: Multiple Choice
         roundBadge.className = "round-badge r1-badge";
         roundBadge.innerText = "Round 1: Multiple Choice";
         stageDesc.innerText = "Cognitive Recognition";
         setupStage1(card);
       } else if (stage === 2) {
-        // Stage 2: Fill in the Blank
         roundBadge.className = "round-badge r2-badge";
         roundBadge.innerText = "Round 2: Fill in the Blank";
         stageDesc.innerText = "Cued Retrieval";
         setupStage2(card);
       } else {
-        // Stage 3: Active Recall
         roundBadge.className = "round-badge r3-badge";
         roundBadge.innerText = "Round 3: Complete Active Recall";
         stageDesc.innerText = "Cognitive Generation";
@@ -612,9 +608,6 @@
       }
     }
 
-    // ==========================================
-    // STAGE 1: MULTIPLE CHOICE (Sampled Distractors)
-    // ==========================================
     function setupStage1(card) {
       document.getElementById("stage1Section").style.display = "block";
       document.getElementById("stage2Section").style.display = "none";
@@ -660,10 +653,10 @@
 
       if (isCorrect) {
         selectedBtn.classList.add("correct");
-        card.stage = 2; // Progress to Stage 2 (Fill in Blank) for future rounds
+        card.stage = 2;
         feedback.className = "feedback-banner feedback-success";
         feedback.innerHTML = `
-          <strong>✅ Correct!</strong> You recognized the definition. This card advances to Fill in the Blank.<br>
+          <strong>✅ Correct!</strong> Recognized definition. Card advances to Fill in the Blank.<br>
           <button class="btn btn-primary" id="s1NextBtn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
         `;
         setTimeout(() => {
@@ -677,19 +670,16 @@
             b.classList.add("correct");
           }
         });
-        card.stage = 1; // Keep in Multiple Choice
+        card.stage = 1;
         feedback.className = "feedback-banner feedback-warning";
         feedback.innerHTML = `
-          <strong>💡 Notice the definition from source notes:</strong><br>${card.a}<br>
-          <span style="font-size: 0.85rem; color: #666;">This card will reappear as Multiple Choice in subsequent rounds.</span><br>
+          <strong>💡 Definition from source notes:</strong><br>${card.a}<br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Card will reappear as Multiple Choice in subsequent rounds.</span><br>
           <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
         `;
       }
     }
 
-    // ==========================================
-    // STAGE 2: FILL IN THE BLANK (Cloze)
-    // ==========================================
     function setupStage2(card) {
       document.getElementById("stage1Section").style.display = "none";
       document.getElementById("stage2Section").style.display = "block";
@@ -700,7 +690,6 @@
       feedback.style.display = "none";
       feedback.innerHTML = "";
 
-      // Determine target word to blank out
       let targetWord = "";
       const boldMatch = card.a.match(/\*\*(.*?)\*\*/);
       if (card.targetTerm) {
@@ -716,12 +705,10 @@
 
       currentTargetCloze = targetWord;
 
-      // Create sentence with blank
       let sentenceHtml = card.a;
       if (sentenceHtml.includes(targetWord)) {
         sentenceHtml = sentenceHtml.replace(targetWord, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
       } else {
-        // Regex case-insensitive fallback replace
         const regex = new RegExp(targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
         sentenceHtml = sentenceHtml.replace(regex, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
       }
@@ -733,7 +720,6 @@
       document.getElementById("s2SubmitBtn").disabled = false;
       setTimeout(() => inp.focus(), 60);
 
-      // Allow Enter key to submit
       inp.onkeydown = (e) => {
         if (e.key === "Enter") submitStage2Cloze();
       };
@@ -758,7 +744,7 @@
       const isMatch = (userVal === targetVal) || (targetVal.includes(userVal) && userVal.length >= 3) || (userVal.includes(targetVal));
 
       if (isMatch) {
-        card.stage = 3; // Advance to Stage 3 (Active Recall)
+        card.stage = 3;
         feedback.className = "feedback-banner feedback-success";
         feedback.innerHTML = `
           <strong>✅ Correct!</strong> Missing term: <strong>${currentTargetCloze}</strong>.<br>
@@ -770,19 +756,16 @@
           if (b) b.focus();
         }, 50);
       } else {
-        card.stage = 2; // Stay in Stage 2
+        card.stage = 2;
         feedback.className = "feedback-banner feedback-warning";
         feedback.innerHTML = `
           <strong>💡 Target term from source notes:</strong> <strong>${currentTargetCloze}</strong>.<br>
-          <span style="font-size: 0.85rem; color: #666;">This card will reappear as Fill in the Blank in subsequent rounds.</span><br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Card will reappear as Fill in the Blank in subsequent rounds.</span><br>
           <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
         `;
       }
     }
 
-    // ==========================================
-    // STAGE 3: ACTIVE RECALL (Side-by-Side)
-    // ==========================================
     function setupStage3(card) {
       document.getElementById("stage1Section").style.display = "none";
       document.getElementById("stage2Section").style.display = "none";
@@ -821,7 +804,6 @@
       if (isMastered) {
         card.status = "mastered";
       } else {
-        // Return to Fill in the Blank per instructions
         card.stage = 2;
         card.status = "learning";
       }
@@ -847,10 +829,9 @@
         return;
       }
 
-      // Show round transition card
       document.getElementById("quiz-card-container").style.display = "none";
       document.getElementById("roundTransitionCard").style.display = "block";
-      document.getElementById("roundTransitionTitle").innerText = `🎉 Round ${currentRoundNumber} Complete!`;
+      document.getElementById("roundTransitionTitle").innerText = `🌿 Round ${currentRoundNumber} Complete!`;
       document.getElementById("roundTransitionSub").innerHTML = `
         You finished 7 questions in this round.<br>
         <strong>${unmastered.length}</strong> card${unmastered.length === 1 ? "" : "s"} remaining in this deck.

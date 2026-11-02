@@ -1,23 +1,46 @@
 @import url("https://use.typekit.net/wra7ena.css");
 
 :root {
-  --bg-canvas: #f8f6f0;
-  --text-main: #240404;
-  --card-bg: #fffef8;
-  --border-color: #240404;
-  --accent-yellow: #f9ed32;
-  --accent-teal: #6ddac7;
-  --accent-red: #e82e25;
-  --accent-orange: #fbb040;
-  --accent-green: #39b54a;
-  --folder-ai-pink: #ff6b9d;
-  --folder-science: #39b54a;
-  --folder-math: #e82e25;
-  --folder-lit: #2d7ff9;
-  --folder-lang: #9b51e0;
-  --folder-history: #fbb040;
-  --folder-art: #17aaa4;
+  /* Natural Neutral & Sage Palette from sage_refs */
+  --bg-canvas: #f2f5ee;            /* Soft Mist / Ivory canvas */
+  --bg-card: #fdfcf9;              /* Almond cream / Ivory paper */
+  --bg-surface: #ffffff;
+  --text-main: #2b332b;            /* Deep forest / warm charcoal */
+  --text-muted: #5f6c5e;           /* Muted sage grey */
+  --border-color: #2e382e;         /* Refined forest charcoal border */
+  --border-subtle: #cbd5c8;        /* Soft sage mist border */
+  
+  /* Calm Sage & Earth Accents from Moodboard */
+  --sage-primary: #4e6750;         /* Primary Sage Green (buttons & highlights) */
+  --sage-dark: #374b39;            /* Deep Forest */
+  --sage-light: #e4ebe0;           /* Soft Sage tint */
+  --sage-coastal: #8fa69a;         /* Coastal Sage */
+  --almond-cream: #faedd9;         /* Almond Cream */
+  --golden-chamomile: #d8c386;     /* Golden Chamomile */
+  --linen: #e8e3d9;                /* Natural Linen */
+  --dusty-rose: #c98897;           /* Muted Rose / Clay */
+  --soft-blue: #93b1c6;            /* Slate Mist Blue */
+
+  /* Subject Folder Colors (Muted Natural Palette from sage_refs) */
+  --folder-art: #5e8c84;           /* Coastal Sage Teal */
+  --folder-ai-pink: #bf7888;       /* Muted Rose / Clay */
+  --folder-science: #557c53;       /* Deep Moss */
+  --folder-math: #b05c56;          /* Terracotta Clay */
+  --folder-lit: #5b7e98;           /* Slate Mist */
+  --folder-lang: #7e6f96;          /* Dusty Lavender */
+  --folder-history: #b89158;       /* Chamomile Ochre */
+
+  /* Button & Shadow Utilities */
+  --accent-yellow: var(--golden-chamomile);
+  --accent-teal: var(--sage-coastal);
+  --accent-red: var(--folder-math);
+  --accent-orange: var(--folder-history);
+  --accent-green: var(--sage-primary);
+
   --shadow-offset: 4px;
+  --shadow-soft: 0 10px 24px -4px rgba(43, 51, 43, 0.08), 0 4px 8px -2px rgba(43, 51, 43, 0.04);
+  --shadow-card: 0 14px 28px rgba(43, 51, 43, 0.12), 0 6px 12px rgba(43, 51, 43, 0.08);
+  --shadow-btn: 0 4px 10px rgba(43, 51, 43, 0.12), 2.5px 2.5px 0px var(--border-color);
 }
 
 * {
@@ -28,10 +51,10 @@
 
 body {
   background-color: var(--bg-canvas);
-  background-image: radial-gradient(rgba(36, 4, 4, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(78, 103, 80, 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text-main);
-  font-family: "ff-seria-sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "ff-seria-sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 400;
   font-style: normal;
   display: flex;
@@ -41,9 +64,10 @@ body {
 }
 
 h1, .dash-hero h1, .brand-badge {
-  font-family: "dark-london", "Space Mono", Georgia, serif;
+  font-family: "dark-london", "ff-seria-sans", Georgia, serif;
   font-weight: 400;
   font-style: normal;
+  letter-spacing: -0.5px;
 }
 
 h2 {
@@ -61,16 +85,16 @@ h3 {
 /* Top Website Navigation Bar */
 header.site-navbar {
   width: 100%;
-  background-color: #fff;
-  border-bottom: 3px solid var(--border-color);
+  background-color: #fafbf8;
+  border-bottom: 2.5px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 0px rgba(36, 4, 4, 0.04);
+  box-shadow: 0 4px 12px rgba(43, 51, 43, 0.05);
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 14px 24px;
   display: flex;
@@ -90,23 +114,29 @@ header.site-navbar {
 }
 
 .brand-badge {
-  background-color: var(--accent-yellow);
+  background-color: var(--golden-chamomile);
+  color: var(--text-main);
   border: 2.5px solid var(--border-color);
-  border-radius: 80px;
-  padding: 6px 16px;
+  border-radius: 9999px;
+  padding: 6px 18px;
   font-size: 1.05rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
+  font-weight: 700;
   box-shadow: 2.5px 2.5px 0px var(--border-color);
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  transform: rotate(-1deg);
+  transition: transform 0.2s ease;
+}
+
+.brand-badge:hover {
+  transform: rotate(0deg);
 }
 
 .nav-links-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   list-style: none;
   flex-wrap: wrap;
 }
@@ -115,13 +145,13 @@ header.site-navbar {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 18px;
+  padding: 8px 18px;
   color: var(--text-main);
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 0.85rem;
   border: 2px solid transparent;
-  border-radius: 80px; /* 80px corner rounding */
+  border-radius: 9999px;
   cursor: pointer;
   transition: all 0.15s ease;
   background: transparent;
@@ -129,16 +159,17 @@ header.site-navbar {
 }
 
 .nav-link-btn:hover {
-  background-color: #fff;
+  background-color: var(--sage-light);
   border-color: var(--border-color);
-  box-shadow: 2.5px 2.5px 0px var(--border-color);
+  box-shadow: 2px 2px 0px var(--border-color);
   transform: translate(-1px, -1px);
 }
 
 .nav-link-btn.active {
-  background-color: var(--accent-teal);
+  background-color: var(--sage-primary);
+  color: #ffffff;
   border-color: var(--border-color);
-  box-shadow: 2.5px 2.5px 0px var(--border-color);
+  box-shadow: 2px 2px 0px var(--border-color);
 }
 
 /* Main Content Area */
@@ -149,47 +180,20 @@ main {
   flex-direction: column;
 }
 
-.header-breadcrumb {
-  font-size: 0.85rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pill-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  border: 2px solid var(--border-color);
-  border-radius: 999px;
-  box-shadow: 2px 2px 0px var(--border-color);
-  text-transform: uppercase;
-}
-
-.pill-ai { background-color: var(--folder-ai-pink); color: #fff; }
-.pill-science { background-color: var(--folder-science); color: #fff; }
-.pill-math { background-color: var(--folder-math); color: #fff; }
-.pill-lit { background-color: var(--folder-lit); color: #fff; }
-.pill-lang { background-color: var(--folder-lang); color: #fff; }
-.pill-history { background-color: var(--folder-history); color: #fff; }
-.pill-art { background-color: var(--folder-art); color: #fff; }
-
 .content-container {
-  padding: 32px;
+  padding: 32px 24px;
   max-width: 1050px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* Neo-Brutalist Box Utility with organic grid breaks */
+/* Break the Grid - Organic Rotations & Tactile Boxes */
 .neo-box {
-  background-color: #fff;
-  border: 3px solid var(--border-color);
-  box-shadow: 0 6px 16px rgba(36, 4, 4, 0.08), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
-  border-radius: 10px;
-  padding: 24px;
+  background-color: var(--bg-surface);
+  border: 2.5px solid var(--border-color);
+  box-shadow: 0 6px 16px rgba(43, 51, 43, 0.06), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+  border-radius: 12px;
+  padding: 26px;
   margin-bottom: 24px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -204,9 +208,10 @@ main {
 
 .neo-box:hover {
   transform: rotate(0deg) translate(-1px, -1px);
-  box-shadow: 0 10px 22px rgba(36, 4, 4, 0.12), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+  box-shadow: 0 10px 22px rgba(43, 51, 43, 0.1), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
 }
 
+/* Tactile Pill Buttons with Drop Shadows */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -214,66 +219,109 @@ main {
   gap: 8px;
   padding: 10px 22px;
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.3px;
   border: 2px solid var(--border-color);
-  border-radius: 80px; /* 80px corner rounding */
+  border-radius: 9999px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(36, 4, 4, 0.12), 3px 3px 0px var(--border-color);
+  box-shadow: var(--shadow-btn);
   transition: all 0.15s ease;
-  background-color: #fff;
+  background-color: #ffffff;
   color: var(--text-main);
   text-decoration: none;
   font-family: inherit;
 }
 
 .btn:hover {
-  transform: translate(-2px, -2px) rotate(-0.5deg);
-  box-shadow: 0 8px 16px rgba(36, 4, 4, 0.16), 5px 5px 0px var(--border-color);
+  transform: translate(-2px, -2px) rotate(-0.4deg);
+  box-shadow: 0 8px 16px rgba(43, 51, 43, 0.14), 4px 4px 0px var(--border-color);
 }
 
 .btn:active {
   transform: translate(1px, 1px) rotate(0deg);
-  box-shadow: 0 2px 5px rgba(36, 4, 4, 0.1), 2px 2px 0px var(--border-color);
+  box-shadow: 0 2px 4px rgba(43, 51, 43, 0.1), 1.5px 1.5px 0px var(--border-color);
 }
 
 .btn-sm {
   padding: 6px 14px;
   font-size: 0.75rem;
-  border-radius: 80px;
+  border-radius: 9999px;
 }
 
 .btn-circle {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  border-radius: 80px;
+  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
 }
 
-.btn-primary { background-color: var(--accent-yellow); }
-.btn-teal { background-color: var(--accent-teal); }
-.btn-red { background-color: var(--accent-red); color: #fff; }
+.btn-primary { 
+  background-color: var(--sage-primary); 
+  color: #ffffff; 
+}
 
-/* Dashboard Grid & Hero */
+.btn-primary:hover {
+  background-color: var(--sage-dark);
+  color: #ffffff;
+}
+
+.btn-teal { 
+  background-color: var(--sage-coastal); 
+  color: #ffffff; 
+}
+
+.btn-teal:hover {
+  background-color: var(--folder-art);
+  color: #ffffff;
+}
+
+.btn-red { 
+  background-color: var(--folder-math); 
+  color: #ffffff; 
+}
+
+/* Subject Badges (Natural Neutral Palette) */
+.pill-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 2px solid var(--border-color);
+  border-radius: 9999px;
+  box-shadow: 2px 2px 0px var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pill-art { background-color: var(--folder-art); color: #ffffff; }
+.pill-ai { background-color: var(--folder-ai-pink); color: #ffffff; }
+.pill-science { background-color: var(--folder-science); color: #ffffff; }
+.pill-math { background-color: var(--folder-math); color: #ffffff; }
+.pill-lit { background-color: var(--folder-lit); color: #ffffff; }
+.pill-lang { background-color: var(--folder-lang); color: #ffffff; }
+.pill-history { background-color: var(--folder-history); color: #ffffff; }
+
+/* Dashboard Hero */
 .dash-hero {
-  background-color: var(--accent-yellow);
+  background-color: var(--almond-cream);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
-/* Circular Mastery Gauge Section */
+/* Circular Mastery Gauge Section (Calm Sage Ratio) */
 .mastery-highlight-box {
-  background-color: #fff;
-  border: 3px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+  background-color: #ffffff;
+  border: 2.5px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(43, 51, 43, 0.06), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
   padding: 24px 28px;
   margin-bottom: 26px;
   display: flex;
@@ -281,6 +329,7 @@ main {
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
+  transform: rotate(0.3deg);
 }
 
 .mastery-gauge-container {
@@ -289,13 +338,12 @@ main {
   gap: 24px;
 }
 
-/* Circle filled with ratio of color to lack of color */
 .ratio-circle {
-  width: 108px;
-  height: 108px;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
-  border: 3px solid var(--border-color);
-  background: conic-gradient(var(--accent-teal) 0deg, #edf2f7 0deg);
+  border: 2.5px solid var(--border-color);
+  background: conic-gradient(var(--sage-primary) 0deg, var(--sage-light) 0deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,8 +353,8 @@ main {
 }
 
 .ratio-circle-inner {
-  width: 68px;
-  height: 68px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid var(--border-color);
@@ -314,37 +362,35 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.05rem;
   color: var(--text-main);
-  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.06);
 }
 
 .ratio-circle-inner span {
   font-size: 0.6rem;
   text-transform: uppercase;
-  font-weight: 800;
-  color: #666;
+  font-weight: 700;
+  color: var(--text-muted);
   margin-top: 1px;
 }
 
 .mastery-info-details h3 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-style: normal;
 }
 
 .mastery-stats-text {
   font-size: 0.85rem;
-  color: #555;
+  color: var(--text-muted);
   margin-top: 6px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
+/* Subject Folders Grid */
 .folder-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -353,11 +399,11 @@ main {
 }
 
 .folder-card {
-  background-color: #fff;
-  border: 3px solid var(--border-color);
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 10px rgba(36, 4, 4, 0.08), 3px 3px 0px var(--border-color);
+  background-color: #ffffff;
+  border: 2.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 4px 10px rgba(43, 51, 43, 0.06), 3px 3px 0px var(--border-color);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
@@ -375,14 +421,14 @@ main {
 
 .folder-card:hover {
   transform: rotate(0deg) translate(-2px, -2px);
-  box-shadow: 0 8px 18px rgba(36, 4, 4, 0.14), 5px 5px 0px var(--border-color);
+  box-shadow: 0 8px 18px rgba(43, 51, 43, 0.12), 5px 5px 0px var(--border-color);
 }
 
 .folder-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .folder-icon {
@@ -393,14 +439,15 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 0.8rem;
 }
 
 /* Note View Styling */
 .note-content h1 {
   font-size: 1.8rem;
   margin-bottom: 12px;
-  border-bottom: 3px solid var(--border-color);
+  border-bottom: 2.5px solid var(--border-color);
   padding-bottom: 8px;
 }
 
@@ -420,14 +467,6 @@ main {
   margin-bottom: 8px;
 }
 
-.note-content h4 {
-  font-size: 0.95rem;
-  margin-top: 14px;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
 .note-content ul, .note-content ol {
   margin-left: 24px;
   margin-bottom: 14px;
@@ -437,44 +476,53 @@ main {
   margin-bottom: 6px;
 }
 
-.note-content blockquote {
-  border-left: 5px solid var(--accent-red);
-  background-color: #fff3f3;
-  padding: 12px 18px;
-  margin: 16px 0;
-  font-style: italic;
-  border-radius: 0 6px 6px 0;
-}
-
 .equation-highlight {
-  background-color: #d1f7c4;
-  border: 1px solid #39b54a;
+  background-color: var(--sage-light);
+  border: 1px solid var(--sage-primary);
+  color: var(--sage-dark);
   padding: 2px 6px;
   border-radius: 4px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .path-highlight {
-  background-color: #ffd1dc;
-  border: 1px solid #ff6b9d;
+  background-color: #f7e6e9;
+  border: 1px solid var(--folder-ai-pink);
+  color: #7a3140;
   padding: 2px 6px;
   border-radius: 4px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-/* Flashcard View & 3D Flip with Real Paper Index Card Look */
+/* Real Paper Index Flashcard (from sage_refs) */
 .flashcard-wrapper {
   perspective: 1200px;
   max-width: 660px;
   margin: 24px auto;
-  filter: drop-shadow(0 14px 22px rgba(36, 4, 4, 0.14)) drop-shadow(0 4px 8px rgba(36, 4, 4, 0.08));
+  filter: drop-shadow(0 14px 22px rgba(43, 51, 43, 0.12)) drop-shadow(0 4px 8px rgba(43, 51, 43, 0.06));
   transform: rotate(-0.5deg);
   transition: transform 0.25s ease, filter 0.25s ease;
+  position: relative;
 }
 
 .flashcard-wrapper:hover {
   transform: rotate(0deg);
-  filter: drop-shadow(0 18px 28px rgba(36, 4, 4, 0.18)) drop-shadow(0 6px 12px rgba(36, 4, 4, 0.1));
+  filter: drop-shadow(0 18px 28px rgba(43, 51, 43, 0.16)) drop-shadow(0 6px 12px rgba(43, 51, 43, 0.08));
+}
+
+/* Layered Paper Stack Edge Effect */
+.flashcard-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: -6px;
+  bottom: -6px;
+  background-color: var(--linen);
+  border: 2px solid var(--border-color);
+  border-radius: 14px;
+  z-index: -1;
+  transform: rotate(0.8deg);
 }
 
 .flashcard {
@@ -497,16 +545,16 @@ main {
   backface-visibility: hidden;
   border: 2.5px solid var(--border-color);
   border-radius: 14px;
-  padding: 26px 32px;
-  background-color: #fffef9; /* warm paper off-white */
+  padding: 24px 30px;
+  background-color: #fffef9; /* warm index card paper */
   background-image: repeating-linear-gradient(
     transparent,
     transparent 31px,
-    rgba(160, 185, 215, 0.35) 31px,
-    rgba(160, 185, 215, 0.35) 32px
+    rgba(143, 166, 154, 0.3) 31px,
+    rgba(143, 166, 154, 0.3) 32px
   );
-  border-left: 5px solid rgba(239, 110, 110, 0.65); /* red margin line */
-  box-shadow: inset 0 0 30px rgba(240, 230, 210, 0.25), 4px 4px 0px var(--border-color);
+  border-left: 6px solid var(--dusty-rose); /* index card margin guide */
+  box-shadow: inset 0 0 25px rgba(235, 230, 215, 0.3), 3px 3px 0px var(--border-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -517,107 +565,78 @@ main {
 }
 
 .card-back {
-  background-color: #fcfbf5;
+  background-color: #fdfcf7;
   transform: rotateY(180deg);
 }
 
 .card-tag {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .card-body-text {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   line-height: 1.5;
   margin: auto 0;
-  font-family: "ff-seria-sans", system-ui, -apple-system, Georgia, serif;
+  font-family: "ff-seria-sans", system-ui, Georgia, serif;
 }
 
 .card-hint {
   font-size: 0.75rem;
   text-align: center;
-  color: #999;
+  color: var(--text-muted);
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-.flashcard-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-}
-
+/* Progress Bar */
 .progress-bar-container {
   width: 100%;
-  height: 14px;
-  background-color: #e2e8f0;
+  height: 12px;
+  background-color: var(--sage-light);
   border: 2px solid var(--border-color);
-  border-radius: 999px;
+  border-radius: 9999px;
   overflow: hidden;
   margin: 16px 0;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background-color: var(--accent-teal);
+  background-color: var(--sage-primary);
   width: 0%;
   transition: width 0.3s ease;
 }
 
-.mastery-stats {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.stat-pill {
-  flex: 1;
-  padding: 10px 16px;
-  border: 2px solid var(--border-color);
-  border-radius: 80px;
-  text-align: center;
-  background-color: #fff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  box-shadow: 2px 2px 0px var(--border-color);
-}
-
-.stat-pill.active {
-  background-color: var(--accent-yellow);
-}
-
-/* Pill Navigation for Flashcard Deck (Figma/Knowt Wireframe) */
+/* Card Navigation Pill */
 .card-nav-pill {
-  background: #fff;
+  background: #ffffff;
   border: 2.5px solid var(--border-color);
-  border-radius: 80px;
+  border-radius: 9999px;
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
   box-shadow: 2.5px 2.5px 0px var(--border-color);
   gap: 14px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .card-nav-pill button {
-  background: var(--accent-teal);
+  background: var(--sage-light);
+  color: var(--text-main);
   border: 2px solid var(--border-color);
   width: 36px;
   height: 36px;
-  border-radius: 80px;
+  border-radius: 50%;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.05rem;
   transition: all 0.15s ease;
   font-family: inherit;
@@ -625,56 +644,49 @@ main {
 
 .card-nav-pill button:hover {
   transform: scale(1.08);
-  background-color: var(--accent-yellow);
+  background-color: var(--sage-primary);
+  color: #ffffff;
 }
 
-/* Study Progress Breakdown Rows */
-.study-row-pill {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 18px;
-  border: 2px solid var(--border-color);
-  border-radius: 80px;
-  margin-bottom: 10px;
-  background: #fff;
-  box-shadow: 2px 2px 0px var(--border-color);
-  font-size: 0.85rem;
-  font-weight: bold;
-}
-
-/* Search & Term List */
-.term-search-box {
+/* Reference Table */
+.deck-reference-table {
   width: 100%;
-  padding: 12px 20px;
-  font-family: inherit;
+  border-collapse: collapse;
+  margin-top: 20px;
   font-size: 0.9rem;
-  border: 2px solid var(--border-color);
-  border-radius: 80px;
-  margin-top: 14px;
-  box-shadow: 2px 2px 0px var(--border-color);
-  outline: none;
 }
 
-.term-item {
-  padding: 10px 16px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
+.deck-reference-table th, 
+.deck-reference-table td {
+  border: 1.5px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
 }
 
-.term-item:last-child {
-  border-bottom: none;
+.deck-reference-table th {
+  background-color: var(--sage-light);
+  font-weight: 700;
 }
+
+.table-status-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--border-color);
+}
+
+.status-new { background-color: #e6ece3; color: #3b473b; }
+.status-learning { background-color: var(--almond-cream); color: #78521a; }
+.status-mastered { background-color: #d7e8d4; color: #1e521a; }
 
 footer.site-footer {
   text-align: center;
   padding: 24px;
   font-size: 0.8rem;
-  color: #666;
-  border-top: 2px solid var(--border-color);
-  background-color: #fff;
+  color: var(--text-muted);
+  border-top: 2px solid var(--border-subtle);
+  background-color: #fafbf8;
   margin-top: auto;
 }
