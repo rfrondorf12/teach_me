@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teach Me Hub — Dashboard</title>
-  <!-- Link to shared CSS file per github_site_instructions -->
+  <!-- Link to Typekit and central stylesheet -->
   <link rel="stylesheet" href="https://use.typekit.net/wra7ena.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -31,21 +31,21 @@
   <main>
     <div class="content-container">
 
-      <!-- DASHBOARD HERO -->
-      <section class="neo-box dash-hero">
+      <!-- DASHBOARD HERO (Unboxed, Airy, Typographic) -->
+      <section class="dash-hero reveal">
         <div>
-          <h1 style="font-size: 1.8rem; margin-bottom: 8px;">Welcome to Your Teach Me Hub</h1>
-          <p style="font-size: 0.9rem;">Your interactive study workspace for notes and spaced repetition decks, generated straight from your vault.</p>
+          <h1>Welcome to Your Teach Me Hub</h1>
+          <p>Your interactive study workspace for notes and spaced repetition decks, generated straight from your vault.</p>
         </div>
         <div>
           <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">⚡ Study Active Deck</a>
         </div>
       </section>
 
-      <!-- RECENT DECK MASTERY (Circular Ratio Indicator) -->
-      <div class="mastery-highlight-box">
+      <!-- RECENT DECK MASTERY (Floating Glass Strip - Unboxed) -->
+      <section class="mastery-highlight-box reveal delay-1">
         <div class="mastery-gauge-container">
-          <!-- Circle filled with the exact ratio of color to lack of color -->
+          <!-- Circular Ratio Indicator -->
           <div class="ratio-circle" id="dash-mastery-circle" title="Mastery Ratio">
             <div class="ratio-circle-inner">
               <div id="dash-mastery-pct">0%</div>
@@ -56,7 +56,7 @@
           <div class="mastery-info-details">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
               <span class="pill-badge pill-art">Art</span>
-              <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: bold; color: #777;">Recently Added Deck</span>
+              <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px;">Recently Added Deck</span>
             </div>
             <h3>Cinematic Storyboarding &amp; Motion Graphics</h3>
             <div class="mastery-stats-text">
@@ -70,94 +70,110 @@
         <div>
           <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">⚡ Study Deck (30 Cards)</a>
         </div>
-      </div>
+      </section>
 
-      <!-- SUBJECT FOLDERS GRID -->
-      <h3 style="margin-bottom: 12px;">📁 Subject Folders</h3>
-      <div class="folder-grid">
-        <a href="folders.html#folder-art" class="folder-card" style="border-top: 6px solid var(--folder-art);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-art); color: #fff;">AR</div>
-            <strong>Art</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">2 Notes • 2 Flashcard Decks</p>
-        </a>
+      <!-- SUBJECT FOLDERS (Only elements with tactile box containers) -->
+      <section style="margin-top: 10px;">
+        <h3 class="reveal delay-2" style="font-size: 1.3rem; margin-bottom: 14px; font-style: normal; display: flex; align-items: center; gap: 8px;">
+          📁 Subject Folders
+        </h3>
+        <div class="folder-grid">
+          <a href="folders.html#folder-art" class="folder-card reveal delay-2" style="border-top: 6px solid var(--folder-art);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-art); color: #fff;">AR</div>
+              <strong>Art</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">2 Notes • 2 Flashcard Decks</p>
+          </a>
 
-        <a href="folders.html#folder-ai" class="folder-card" style="border-top: 6px solid var(--folder-ai-pink);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-ai-pink); color: #fff;">AI</div>
-            <strong>Artificial Intelligence</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">3 Notes • 3 Flashcard Decks</p>
-        </a>
+          <a href="folders.html#folder-ai" class="folder-card reveal delay-3" style="border-top: 6px solid var(--folder-ai-pink);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-ai-pink); color: #fff;">AI</div>
+              <strong>Artificial Intelligence</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">4 Notes • 4 Flashcard Decks</p>
+          </a>
 
-        <div class="folder-card" style="border-top: 6px solid var(--folder-science);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-science); color: #fff;">SC</div>
-            <strong>Science</strong>
+          <div class="folder-card reveal delay-4" style="border-top: 6px solid var(--folder-science);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-science); color: #fff;">SC</div>
+              <strong>Science</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">0 Notes</p>
           </div>
-          <p style="font-size: 0.8rem; color: #555;">0 Notes</p>
+
+          <div class="folder-card reveal delay-5" style="border-top: 6px solid var(--folder-math);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-math); color: #fff;">MA</div>
+              <strong>Math</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">0 Notes</p>
+          </div>
+
+          <div class="folder-card reveal delay-6" style="border-top: 6px solid var(--folder-lit);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-lit); color: #fff;">LT</div>
+              <strong>Literature</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">0 Notes</p>
+          </div>
+
+          <div class="folder-card reveal delay-7" style="border-top: 6px solid var(--folder-lang);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-lang); color: #fff;">LN</div>
+              <strong>Language</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">0 Notes</p>
+          </div>
+
+          <div class="folder-card reveal delay-7" style="border-top: 6px solid var(--folder-history);">
+            <div class="folder-header">
+              <div class="folder-icon" style="background-color: var(--folder-history); color: #fff;">HI</div>
+              <strong>History</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">0 Notes</p>
+          </div>
         </div>
+      </section>
 
-        <div class="folder-card" style="border-top: 6px solid var(--folder-math);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-math); color: #fff;">MA</div>
-            <strong>Math</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">0 Notes</p>
-        </div>
-
-        <div class="folder-card" style="border-top: 6px solid var(--folder-lit);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-lit); color: #fff;">LT</div>
-            <strong>Literature</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">0 Notes</p>
-        </div>
-
-        <div class="folder-card" style="border-top: 6px solid var(--folder-lang);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-lang); color: #fff;">LN</div>
-            <strong>Language</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">0 Notes</p>
-        </div>
-
-        <div class="folder-card" style="border-top: 6px solid var(--folder-history);">
-          <div class="folder-header">
-            <div class="folder-icon" style="background-color: var(--folder-history); color: #fff;">HI</div>
-            <strong>History</strong>
-          </div>
-          <p style="font-size: 0.8rem; color: #555;">0 Notes</p>
-        </div>
-      </div>
-
-      <!-- RECENT ADDITIONS -->
-      <div class="neo-box" style="margin-top: 24px;">
-        <h3 style="margin-bottom: 12px;">Recent Additions</h3>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 8px; background-color: var(--sage-light); border-left: 6px solid var(--folder-art); margin-bottom: 12px; flex-wrap: wrap; gap: 10px; box-shadow: 2px 2px 0 var(--border-color);">
+      <!-- RECENT ADDITIONS (Unboxed, Flowing List with Scroll Reveal) -->
+      <section class="recent-additions-section reveal delay-3">
+        <h3>⏱️ Recent Additions</h3>
+        
+        <div class="recent-item-card reveal delay-3" style="border-left: 5px solid var(--folder-art);">
           <div>
-            <strong style="font-size: 1.05rem;">cinematic_storyboarding_and_motion_graphics</strong> <span class="pill-badge pill-art">Art</span>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: Cinematic Storyboarding, Motion Graphics Pipelines, and Visual Narrative Architecture.pdf • 30 Cards Generated</p>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+              <strong style="font-size: 1.05rem;">cinematic_storyboarding_and_motion_graphics</strong>
+              <span class="pill-badge pill-art">Art</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: Cinematic Storyboarding, Motion Graphics Pipelines, and Visual Narrative Architecture.pdf • 30 Cards</p>
           </div>
           <div style="display: flex; gap: 8px;">
             <a href="note-cinematic-storyboarding.html" class="btn btn-primary">Notes</a>
             <a href="flashcards-cinematic-storyboarding.html" class="btn btn-teal">Flashcards</a>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 8px; background-color: #faf5f7; border-left: 6px solid var(--folder-ai-pink); margin-bottom: 12px; flex-wrap: wrap; gap: 10px; box-shadow: 2px 2px 0 var(--border-color);">
+
+        <div class="recent-item-card reveal delay-4" style="border-left: 5px solid var(--folder-ai-pink);">
           <div>
-            <strong style="font-size: 1.05rem;">animation_and_artificial_intelligence</strong> <span class="pill-badge pill-ai">Artificial Intelligence</span>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: uhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.pdf • 35 Cards Generated</p>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+              <strong style="font-size: 1.05rem;">animation_and_artificial_intelligence</strong>
+              <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: uhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.pdf • 35 Cards Generated (FAccT '24)</p>
           </div>
           <div style="display: flex; gap: 8px;">
             <a href="note-animation-and-ai.html" class="btn btn-primary">Notes</a>
             <a href="flashcards-animation-and-ai.html" class="btn btn-teal">Flashcards</a>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 8px; background-color: #ffffff; border-left: 6px solid var(--folder-ai-pink); margin-bottom: 12px; flex-wrap: wrap; gap: 10px; box-shadow: 2px 2px 0 var(--border-color);">
+
+        <div class="recent-item-card reveal delay-5" style="border-left: 5px solid var(--folder-ai-pink);">
           <div>
-            <strong style="font-size: 1.05rem;">neural_networks</strong> <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+              <strong style="font-size: 1.05rem;">neural_networks</strong>
+              <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            </div>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: Elements of AI/Lessons/neural_networks.md • 32 Cards Generated</p>
           </div>
           <div style="display: flex; gap: 8px;">
@@ -165,9 +181,13 @@
             <a href="flashcards-neural-networks.html" class="btn btn-teal">Flashcards</a>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 8px; background-color: #ffffff; border-left: 6px solid var(--folder-art); margin-bottom: 12px; flex-wrap: wrap; gap: 10px; box-shadow: 2px 2px 0 var(--border-color);">
+
+        <div class="recent-item-card reveal delay-6" style="border-left: 5px solid var(--folder-art);">
           <div>
-            <strong style="font-size: 1.05rem;">adobe_professional_certificate</strong> <span class="pill-badge pill-art">Art</span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+              <strong style="font-size: 1.05rem;">adobe_professional_certificate</strong>
+              <span class="pill-badge pill-art">Art</span>
+            </div>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: adobe_professional_certificate.md • 44 Cards Generated</p>
           </div>
           <div style="display: flex; gap: 8px;">
@@ -175,9 +195,13 @@
             <a href="flashcards-adobe-professional.html" class="btn btn-teal">Flashcards</a>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 8px; background-color: #ffffff; border-left: 6px solid var(--folder-ai-pink); flex-wrap: wrap; gap: 10px; box-shadow: 2px 2px 0 var(--border-color);">
+
+        <div class="recent-item-card reveal delay-7" style="border-left: 5px solid var(--folder-ai-pink);">
           <div>
-            <strong style="font-size: 1.05rem;">ai_for_app_building</strong> <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+              <strong style="font-size: 1.05rem;">ai_for_app_building</strong>
+              <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            </div>
             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Source: AI Professional Courses • 15 Cards Generated</p>
           </div>
           <div style="display: flex; gap: 8px;">
@@ -185,7 +209,7 @@
             <a href="flashcards-ai-for-app-building.html" class="btn btn-teal">Flashcards</a>
           </div>
         </div>
-      </div>
+      </section>
 
     </div>
   </main>
@@ -195,8 +219,24 @@
   </footer>
 
   <script>
-    // Read saved progress from localStorage if present
+    // Wix Studio Style Scroll Animation Observer
     window.addEventListener("DOMContentLoaded", () => {
+      const revealElements = document.querySelectorAll('.reveal');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      revealElements.forEach(el => observer.observe(el));
+
+      // Read saved progress from localStorage if present
       try {
         const savedProgress = localStorage.getItem("teachme_progress_cinematic_storyboarding");
         let mastered = 0;
@@ -210,7 +250,7 @@
 
         const circleEl = document.getElementById("dash-mastery-circle");
         if (circleEl) {
-          circleEl.style.background = `conic-gradient(var(--accent-teal) 0deg ${pct * 3.6}deg, #edf2f7 ${pct * 3.6}deg 360deg)`;
+          circleEl.style.background = `conic-gradient(var(--sage-primary) 0deg ${pct * 3.6}deg, var(--sage-light) ${pct * 3.6}deg 360deg)`;
         }
         const pctEl = document.getElementById("dash-mastery-pct");
         if (pctEl) pctEl.innerText = pct + "%";

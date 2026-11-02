@@ -50,9 +50,16 @@
 }
 
 body {
-  background-color: var(--bg-canvas);
-  background-image: radial-gradient(rgba(78, 103, 80, 0.1) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-color: #f3f6f0;
+  background-image: 
+    radial-gradient(at 10% 10%, rgba(143, 166, 154, 0.22) 0px, transparent 50%),
+    radial-gradient(at 90% 15%, rgba(216, 195, 134, 0.2) 0px, transparent 45%),
+    radial-gradient(at 30% 55%, rgba(228, 235, 224, 0.35) 0px, transparent 55%),
+    radial-gradient(at 85% 75%, rgba(191, 120, 136, 0.14) 0px, transparent 50%),
+    radial-gradient(at 15% 90%, rgba(94, 140, 132, 0.16) 0px, transparent 50%),
+    radial-gradient(rgba(78, 103, 80, 0.08) 1.2px, transparent 1.2px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+  background-attachment: fixed;
   color: var(--text-main);
   font-family: "ff-seria-sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 400;
@@ -306,30 +313,58 @@ main {
 .pill-lang { background-color: var(--folder-lang); color: #ffffff; }
 .pill-history { background-color: var(--folder-history); color: #ffffff; }
 
-/* Dashboard Hero */
+/* Dashboard Hero (Unboxed, Airy, Typographic) */
 .dash-hero {
-  background-color: var(--almond-cream);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 38px 0 20px 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  border-radius: 14px;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
-/* Circular Mastery Gauge Section (Calm Sage Ratio) */
+.dash-hero h1 {
+  font-size: 2.8rem;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--text-main) 10%, var(--sage-dark) 50%, var(--sage-primary) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.dash-hero p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 580px;
+  line-height: 1.55;
+}
+
+/* Mastery Gauge Strip (Unboxed, Floating Glass & Gradient) */
 .mastery-highlight-box {
-  background-color: #ffffff;
-  border: 2.5px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(43, 51, 43, 0.06), var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
-  padding: 24px 28px;
-  margin-bottom: 26px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(228, 235, 224, 0.5) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(143, 166, 154, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(43, 51, 43, 0.05);
+  padding: 24px 30px;
+  margin: 16px 0 36px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
-  transform: rotate(0.3deg);
+  transform: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mastery-highlight-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(43, 51, 43, 0.08);
 }
 
 .mastery-gauge-container {
@@ -339,31 +374,31 @@ main {
 }
 
 .ratio-circle {
-  width: 104px;
-  height: 104px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  border: 2.5px solid var(--border-color);
+  border: 2px solid var(--border-color);
   background: conic-gradient(var(--sage-primary) 0deg, var(--sage-light) 0deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 3px 3px 0px var(--border-color);
+  box-shadow: 2px 2px 0px var(--border-color);
   flex-shrink: 0;
   transition: background 0.4s ease;
 }
 
 .ratio-circle-inner {
-  width: 66px;
-  height: 66px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text-main);
 }
 
@@ -376,7 +411,7 @@ main {
 }
 
 .mastery-info-details h3 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   margin-bottom: 4px;
   font-style: normal;
 }
@@ -389,6 +424,62 @@ main {
   align-items: center;
   gap: 12px;
 }
+
+/* Unboxed Recent Additions List */
+.recent-additions-section {
+  margin-top: 40px;
+}
+
+.recent-additions-section h3 {
+  font-size: 1.3rem;
+  font-style: normal;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recent-item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1.5px solid rgba(46, 56, 46, 0.2);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 248, 242, 0.9) 100%);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 4px 14px rgba(43, 51, 43, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.recent-item-card:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 8px 24px rgba(43, 51, 43, 0.08);
+  border-color: var(--sage-primary);
+}
+
+/* Wix Studio Style Smooth Scroll Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.08s; }
+.delay-2 { transition-delay: 0.16s; }
+.delay-3 { transition-delay: 0.24s; }
+.delay-4 { transition-delay: 0.32s; }
+.delay-5 { transition-delay: 0.40s; }
+.delay-6 { transition-delay: 0.48s; }
+.delay-7 { transition-delay: 0.56s; }
 
 /* Subject Folders Grid */
 .folder-grid {
