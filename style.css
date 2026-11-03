@@ -64,6 +64,7 @@ body {
   font-family: "ff-seria-sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-weight: 400;
   font-style: normal;
+  font-size: calc(12pt + 10pt); /* 22pt: increased body font by 10 pts */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -541,16 +542,23 @@ main {
 }
 
 /* Note View Styling */
-.note-content h1 {
-  font-size: 1.8rem;
-  margin-bottom: 12px;
+.note-content h1, .note-title, .note-content h2.note-title {
+  font-family: "ff-seria-sans", system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.2rem;
+  margin-top: 10px;
+  margin-bottom: 14px;
   border-bottom: 2.5px solid var(--border-color);
   padding-bottom: 8px;
+  line-height: 1.25;
 }
 
-.note-content h2 {
-  font-size: 1.3rem;
-  margin-top: 24px;
+.note-content h2:not(.note-title), .note-content h3 {
+  font-family: "ff-seria-sans", system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 26px;
   margin-bottom: 12px;
   color: var(--text-main);
   display: flex;
@@ -558,10 +566,9 @@ main {
   gap: 8px;
 }
 
-.note-content h3 {
-  font-size: 1.1rem;
-  margin-top: 20px;
-  margin-bottom: 8px;
+.note-content p, .note-content li {
+  font-size: calc(12pt + 10pt);
+  line-height: 1.7;
 }
 
 .note-content ul, .note-content ol {
