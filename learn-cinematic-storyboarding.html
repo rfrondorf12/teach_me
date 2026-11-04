@@ -206,7 +206,7 @@
           <div class="lm-progress-fill" id="lm-progress-fill"></div>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; gap: 8px;">
-          <span>Rounds of 7 Questions · Round 1: Multiple Choice → Round 2: Fill in Blank → Round 3: Active Recall</span>
+          <span>Rounds of 7 Questions · Tier 1: Multiple Choice → Tier 2: Active Recall</span>
           <button class="btn btn-sm" onclick="restartLearnSession()" title="Restart session from scratch">🔄 Reset Session</button>
         </div>
       </div>
@@ -216,7 +216,7 @@
         
         <!-- Header badge row -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
-          <span id="roundBadgeEl" class="round-badge r1-badge">Round 1: Multiple Choice</span>
+          <span id="roundBadgeEl" class="round-badge r1-badge">Tier 1: Multiple Choice</span>
           <span style="font-size: 0.85rem; font-weight: bold; color: var(--text-muted);" id="cardStageDesc">Cognitive Recognition</span>
         </div>
 
@@ -230,24 +230,10 @@
           <div id="s1FeedbackBox" class="feedback-banner" style="display: none;"></div>
         </div>
 
-        <!-- Stage 2: Fill in the Blank (Cued Recall) -->
-        <div id="stage2Section" style="display: none;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #78521a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
-            Round 2 · Fill in the Blank (Cued Recall)
-          </div>
-          <h3 id="s2QuestionText" style="font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 14px; color: var(--text-main);"></h3>
-          <div id="s2ClozeSentence" style="font-size: 1.05rem; padding: 18px; background: var(--bg-canvas); border: 2px dashed var(--border-color); border-radius: 10px; margin-bottom: 18px; line-height: 1.6;"></div>
-          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="s2Input" placeholder="Type the missing term..." style="flex: 1; min-width: 240px; padding: 12px 16px; font-size: 1rem; border: 2px solid var(--border-color); border-radius: 9999px; font-family: inherit; outline: none; background: #fff;">
-            <button class="btn btn-primary" id="s2SubmitBtn" onclick="submitStage2Cloze()">Submit Answer</button>
-          </div>
-          <div id="s2FeedbackBox" class="feedback-banner" style="display: none;"></div>
-        </div>
-
-        <!-- Stage 3: Free Active Recall & Side-by-Side Comparison -->
+        <!-- Tier 2: Free Active Recall & Side-by-Side Comparison -->
         <div id="stage3Section" style="display: none;">
           <div style="font-size: 0.85rem; font-weight: 700; color: var(--sage-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
-            Round 3 · Complete Active Recall (Cognitive Generation)
+            Tier 2 · Complete Active Recall (Cognitive Generation)
           </div>
           <h3 id="s3QuestionText" style="font-size: 1.25rem; font-weight: 700; line-height: 1.45; margin-bottom: 12px; color: var(--text-main);"></h3>
           <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
@@ -282,11 +268,11 @@
             <div style="margin-top: 24px; padding: 20px; background: #fafbf8; border: 2px solid var(--border-color); border-radius: 10px; text-align: center;">
               <h4 style="font-size: 1.05rem; margin-bottom: 8px;">Self-Assessment: Did your answer capture the core concept?</h4>
               <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">
-                You decide your mastery. If in progress, this card returns to Fill in the Blank until mastered.
+                You decide your mastery. If in progress, this card returns to Tier 1 Multiple Choice until mastered.
               </p>
               <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
                 <button class="btn" style="border-color: var(--folder-history); background: var(--almond-cream); color: #78521a;" onclick="resolveStage3Mastery(false)">
-                  ⏳ In Progress (Return to Fill in the Blank)
+                  ⏳ In Progress (Return to Multiple Choice)
                 </button>
                 <button class="btn btn-primary" onclick="resolveStage3Mastery(true)">
                   ✅ Mastered! (Card Complete)
@@ -315,7 +301,7 @@
         <div style="font-size: 3rem; margin-bottom: 12px;">🎉</div>
         <h2 style="font-size: 1.8rem; margin-bottom: 12px;">All Cards Mastered in Learn Mode!</h2>
         <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 28px auto;">
-          You successfully navigated through Multiple Choice, Fill in the Blank, and Active Recall across the entire deck!
+          You successfully navigated through Multiple Choice and Active Recall across the entire deck!
         </p>
         <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
           <button class="btn btn-primary" onclick="restartLearnSession()">🔁 Practice Again</button>
@@ -581,280 +567,9 @@
     let currentRoundNumber = 1;
     let roundCards = [];
     let questionInRoundIndex = 0;
-    let currentTargetCloze = "";
-
-    // Initialization
-    function initLearnSession() {
-      let saved = {};
-      try {
-        saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      } catch (e) {}
-
-      deckData.forEach((card, idx) => {
-        if (saved[idx] === "mastered") {
-          card.status = "mastered";
-          card.stage = 3;
-        } else {
-          card.status = saved[idx] || "new";
-          card.stage = 1; // Start at Stage 1: Multiple Choice
-        }
-      });
-
-      currentRoundNumber = 1;
-      buildRoundQueue();
-    }
-
-    function restartLearnSession() {
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (e) {}
-      deckData.forEach(card => {
-        card.status = "new";
-        card.stage = 1;
-      });
-      document.getElementById("completionBanner").style.display = "none";
-      document.getElementById("roundTransitionCard").style.display = "none";
-      document.getElementById("quiz-card-container").style.display = "block";
-      currentRoundNumber = 1;
-      buildRoundQueue();
-    }
-
-    function fisherYatesShuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-    }
-
-    function updateMasteryStats() {
-      const masteredCount = deckData.filter(c => c.status === "mastered").length;
-      document.getElementById("mastery-counter").innerText = masteredCount;
-      document.getElementById("total-cards-counter").innerText = deckData.length;
-
-      const pct = Math.round((masteredCount / deckData.length) * 100);
-      document.getElementById("lm-progress-fill").style.width = pct + "%";
-    }
-
-    function buildRoundQueue() {
-      updateMasteryStats();
-
-      // Check if all cards are mastered
-      const unmastered = deckData.filter(c => c.status !== "mastered");
-      if (unmastered.length === 0) {
-        document.getElementById("quiz-card-container").style.display = "none";
-        document.getElementById("roundTransitionCard").style.display = "none";
-        document.getElementById("completionBanner").style.display = "block";
-        return;
-      }
-
-      // Select up to ROUND_SIZE cards for this round
-      const candidatePool = [...unmastered];
-      fisherYatesShuffle(candidatePool);
-
-      roundCards = candidatePool.slice(0, ROUND_SIZE);
-      questionInRoundIndex = 0;
-
-      document.getElementById("quiz-card-container").style.display = "block";
-      document.getElementById("roundTransitionCard").style.display = "none";
-      document.getElementById("completionBanner").style.display = "none";
-
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      if (questionInRoundIndex >= roundCards.length) {
-        finishCurrentRound();
-        return;
-      }
-
-      const card = roundCards[questionInRoundIndex];
-      const roundBadge = document.getElementById("roundBadgeEl");
-      const stageDesc = document.getElementById("cardStageDesc");
-      const roundText = document.getElementById("round-indicator-text");
-
-      roundText.innerText = `Round ${currentRoundNumber} • Question ${questionInRoundIndex + 1} of ${roundCards.length}`;
-
-      const stage = card.stage || 1;
-
-      if (stage === 1) {
-        roundBadge.className = "round-badge r1-badge";
-        roundBadge.innerText = "Round 1: Multiple Choice";
-        stageDesc.innerText = "Cognitive Recognition";
-        setupStage1(card);
-      } else if (stage === 2) {
-        roundBadge.className = "round-badge r2-badge";
-        roundBadge.innerText = "Round 2: Fill in the Blank";
-        stageDesc.innerText = "Cued Retrieval";
-        setupStage2(card);
-      } else {
-        roundBadge.className = "round-badge r3-badge";
-        roundBadge.innerText = "Round 3: Complete Active Recall";
-        stageDesc.innerText = "Cognitive Generation";
-        setupStage3(card);
-      }
-    }
-
-    function setupStage1(card) {
-      document.getElementById("stage1Section").style.display = "block";
-      document.getElementById("stage2Section").style.display = "none";
-      document.getElementById("stage3Section").style.display = "none";
-
-      document.getElementById("s1QuestionText").innerText = card.q;
-      const feedback = document.getElementById("s1FeedbackBox");
-      feedback.style.display = "none";
-      feedback.innerHTML = "";
-
-      const otherAnswers = deckData
-        .filter(c => c.a !== card.a)
-        .map(c => c.a);
-      
-      fisherYatesShuffle(otherAnswers);
-      const distractors = otherAnswers.slice(0, 3);
-      
-      const options = [
-        { text: card.a, isCorrect: true },
-        ...distractors.map(d => ({ text: d, isCorrect: false }))
-      ];
-      fisherYatesShuffle(options);
-
-      const grid = document.getElementById("s1OptionsGrid");
-      grid.innerHTML = "";
-      const letters = ["A", "B", "C", "D"];
-
-      options.forEach((opt, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "mc-option-btn";
-        btn.innerHTML = `<span class="option-letter">${letters[idx]}</span> <span>${opt.text}</span>`;
-        btn.onclick = () => handleStage1Selection(btn, opt.isCorrect, card);
-        grid.appendChild(btn);
-      });
-    }
-
-    function handleStage1Selection(selectedBtn, isCorrect, card) {
-      const allBtns = document.querySelectorAll(".mc-option-btn");
-      allBtns.forEach(b => b.disabled = true);
-
-      const feedback = document.getElementById("s1FeedbackBox");
-      feedback.style.display = "block";
-
-      if (isCorrect) {
-        selectedBtn.classList.add("correct");
-        card.stage = 2;
-        feedback.className = "feedback-banner feedback-success";
-        feedback.innerHTML = `
-          <strong>✅ Correct!</strong> Recognized definition. Card advances to Fill in the Blank.<br>
-          <button class="btn btn-primary" id="s1NextBtn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
-        `;
-        setTimeout(() => {
-          const b = document.getElementById("s1NextBtn");
-          if (b) b.focus();
-        }, 50);
-      } else {
-        selectedBtn.classList.add("incorrect");
-        allBtns.forEach(b => {
-          if (b.innerText.includes(card.a.replace(/<[^>]+>/g, "").slice(0, 30))) {
-            b.classList.add("correct");
-          }
-        });
-        card.stage = 1;
-        feedback.className = "feedback-banner feedback-warning";
-        feedback.innerHTML = `
-          <strong>💡 Definition from source notes:</strong><br>${card.a}<br>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Card will reappear as Multiple Choice in subsequent rounds.</span><br>
-          <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
-        `;
-      }
-    }
-
-    function setupStage2(card) {
-      document.getElementById("stage1Section").style.display = "none";
-      document.getElementById("stage2Section").style.display = "block";
-      document.getElementById("stage3Section").style.display = "none";
-
-      document.getElementById("s2QuestionText").innerText = card.q;
-      const feedback = document.getElementById("s2FeedbackBox");
-      feedback.style.display = "none";
-      feedback.innerHTML = "";
-
-      let targetWord = "";
-      const boldMatch = card.a.match(/\*\*(.*?)\*\*/);
-      if (card.targetTerm) {
-        targetWord = card.targetTerm;
-      } else if (card.keyTerm) {
-        targetWord = card.keyTerm;
-      } else if (boldMatch && boldMatch[1].trim().length > 1) {
-        targetWord = boldMatch[1].trim();
-      } else {
-        const words = card.a.split(/\s+/).filter(w => w.length > 5);
-        targetWord = words[0] || "concept";
-      }
-
-      currentTargetCloze = targetWord;
-
-      let sentenceHtml = card.a;
-      if (sentenceHtml.includes(targetWord)) {
-        sentenceHtml = sentenceHtml.replace(targetWord, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
-      } else {
-        const regex = new RegExp(targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-        sentenceHtml = sentenceHtml.replace(regex, `<span class="cloze-blank">[ &nbsp; ? &nbsp; ]</span>`);
-      }
-
-      document.getElementById("s2ClozeSentence").innerHTML = sentenceHtml;
-      const inp = document.getElementById("s2Input");
-      inp.value = "";
-      inp.disabled = false;
-      document.getElementById("s2SubmitBtn").disabled = false;
-      setTimeout(() => inp.focus(), 60);
-
-      inp.onkeydown = (e) => {
-        if (e.key === "Enter") submitStage2Cloze();
-      };
-    }
-
-    function submitStage2Cloze() {
-      const card = roundCards[questionInRoundIndex];
-      const inp = document.getElementById("s2Input");
-      const userVal = inp.value.trim().toLowerCase();
-      const targetVal = currentTargetCloze.toLowerCase();
-      const feedback = document.getElementById("s2FeedbackBox");
-
-      if (!userVal) {
-        alert("Please type your answer before submitting.");
-        return;
-      }
-
-      inp.disabled = true;
-      document.getElementById("s2SubmitBtn").disabled = true;
-      feedback.style.display = "block";
-
-      const isMatch = (userVal === targetVal) || (targetVal.includes(userVal) && userVal.length >= 3) || (userVal.includes(targetVal));
-
-      if (isMatch) {
-        card.stage = 3;
-        feedback.className = "feedback-banner feedback-success";
-        feedback.innerHTML = `
-          <strong>✅ Correct!</strong> Missing term: <strong>${currentTargetCloze}</strong>.<br>
-          This card advances to Complete Active Recall in future rounds.<br>
-          <button class="btn btn-primary" id="s2NextBtn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
-        `;
-        setTimeout(() => {
-          const b = document.getElementById("s2NextBtn");
-          if (b) b.focus();
-        }, 50);
-      } else {
-        card.stage = 2;
-        feedback.className = "feedback-banner feedback-warning";
-        feedback.innerHTML = `
-          <strong>💡 Target term from source notes:</strong> <strong>${currentTargetCloze}</strong>.<br>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Card will reappear as Fill in the Blank in subsequent rounds.</span><br>
-          <button class="btn" style="margin-top: 12px;" onclick="advanceQuestion()">Next Question →</button>
-        `;
-      }
-    }
 
     function setupStage3(card) {
       document.getElementById("stage1Section").style.display = "none";
-      document.getElementById("stage2Section").style.display = "none";
       document.getElementById("stage3Section").style.display = "block";
 
       document.getElementById("s3QuestionText").innerText = card.q;
@@ -890,7 +605,7 @@
       if (isMastered) {
         card.status = "mastered";
       } else {
-        card.stage = 2;
+        card.stage = 1;
         card.status = "learning";
       }
 
