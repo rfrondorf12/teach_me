@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Notes — Google AI Essentials: Module 2</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wra7ena.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .equation-highlight {
+      background-color: #d7e8d4;
+      color: #1e521a;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #b8dcb4;
+    }
+    .path-highlight {
+      background-color: #fce4ec;
+      color: #c2185b;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #f8bbd0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Website Navigation Bar -->
+  <header class="site-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="brand-group">
+        <div class="brand-badge">sage</div>
+      </a>
+
+      <nav>
+        <ul class="nav-links-row">
+          <li><a href="index.html" class="nav-link-btn">🏠 Dashboard</a></li>
+          <li><a href="folders.html" class="nav-link-btn">📁 Subject Folders</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="pill-badge pill-ai">Artificial Intelligence</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <div class="content-container">
+
+      <section class="neo-box note-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            <h2 class="note-title" style="margin-top: 10px;">Maximizing Productivity with AI Tools</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Google AI Essentials • Course Modules — Module 2</p>
+          </div>
+          <div>
+            <a href="flashcards-google-ai-essentials-module-2.html" class="btn btn-teal">🗂️ Linked Flashcards</a>
+          </div>
+        </div>
+
+        <hr style="border: 0; border-top: 2px solid var(--border-color); margin: 16px 0;">
+
+        <h2>1. Foundational AI Tool Types</h2>
+        <ul>
+          <li><strong>Gen AI</strong> - AI that can generate new content, like text, images, or other media.
+            <ul>
+              <li>Can use for crafting a compelling company profile or creating detailed product descriptions.</li>
+              <li>Can translate content into multiple languages.</li>
+              <li>Can support research on relevant business topics by summarizing data for easy understanding.</li>
+              <li>Can use for image generation for branding, video generation, and code generation.</li>
+            </ul>
+          </li>
+          <li><strong>Stand alone AI tool</strong> - AI-powered software that’s designed to be used on its own.
+            <ul>
+              <li>Accessed online or through an app.</li>
+              <li>Ex.: Speeko &rarr; AI speech coach for job interview practice; gives personalized challenges.</li>
+            </ul>
+          </li>
+          <li><strong>Integrated AI feature</strong> - A built-in enhancement to a particular piece of software.
+            <ul>
+              <li>Ex.: Neural Filters &rarr; Adobe Photoshop.</li>
+            </ul>
+          </li>
+          <li><strong>Custom AI Solution</strong> - An application that’s tailor made to solve a specific problem.
+            <ul>
+              <li>Ex.: Detecting sepsis.</li>
+            </ul>
+          </li>
+          <li><strong>AI Model</strong> - A computer program trained on a set of data to recognize patterns and perform specific tasks.
+            <ul>
+              <li><span class="equation-highlight">AI model = engine, AI tool = car</span></li>
+            </ul>
+          </li>
+          <li><strong>AI Agent</strong> - An AI-powered tool that can autonomously perform tasks with little human oversight.
+            <ul>
+              <li>Ex.: Automatically respond to emails, post content on socials, or monitor computer networks.</li>
+              <li>Some tools incorporate multiple AI models working together to perform a wider range of tasks.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>2. How AI Models Are Made: The 7-Step Training Process</h2>
+        <p>AI tools are built on top of AI models. The typical process includes:</p>
+        <ol>
+          <li><strong>Define the problem to be solved</strong> - AI designers want to predict rain to help people stay dry when commuting. They consider an AI tool’s features and limitations before identifying an AI solution.</li>
+          <li><strong>Collect relevant training data</strong> - Gather historical data of days when it rained and days when it didn’t rain over the past 50 years.</li>
+          <li><strong>Prep the data for training</strong> - Label important features like outdoor temp, humidity, and air pressure, noting whether it rained.
+            <ul>
+              <li>Common practice: separate data into a <strong>training set</strong> to use during training and a <strong>validation set</strong> to test after training is complete.</li>
+            </ul>
+          </li>
+          <li><strong>Train the model</strong> - Apply ML programs to the prepared training data; as programs analyze data, they begin recognizing patterns indicating the likelihood of rainfall.</li>
+          <li><strong>Evaluate the model</strong> - Use the prepped validation set to assess the model's ability to predict accurately and reliably; reveals issues like insufficient or biased training data. Proceed once the model performs well.</li>
+          <li><strong>Deploy the model</strong> - When satisfied with model performance, deploy the model inside an AI tool.
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin: 4px 0 8px 0;">*Designers and engineers repeat each step as many times as necessary, adjusting until they create the best model possible.</div>
+          </li>
+          <li><strong>User Interaction</strong> - Once users interact with a model, it may encounter new challenges. Designers must continuously collect and monitor feedback to maintain reliable performance and ID areas for improvement.</li>
+        </ol>
+
+        <h2>3. Using AI in Work &amp; Workflow Integration</h2>
+        <ul>
+          <li><strong>Prompt</strong> - Text input that provides instructions to the AI model on how to generate output.</li>
+          <li><strong>Text &amp; content GenAI</strong> - Built on Large Language Models (LLMs) trained on vast amounts of text and data.</li>
+          <li><strong>Code Gen AI tools</strong> - Often described as an &ldquo;AI pair programmer&rdquo; &rarr; specialized for software development.</li>
+          <li><strong>Image &amp; media generative tools</strong> - Use technology known as <strong>diffusion models</strong>, which generate new content from prompts.</li>
+        </ul>
+
+        <h3>Integrating AI into Workflows</h3>
+        <ul>
+          <li><strong>Native features</strong> - Built-in AI capabilities within existing applications.</li>
+          <li><strong>Browser extensions</strong> - Tools added to web browsers allowing AI to assist across wide web-based apps.</li>
+          <li><strong>Dedicated applications</strong> - Standalone tools used as a &ldquo;thinking partner&rdquo; by copying/pasting text.</li>
+          <li><strong>Automation platforms</strong> - Connect tools across different apps to create automated workflows without code (ex.: summarizing an email with AI and adding it to a to-do list).</li>
+        </ul>
+
+        <h3>4 Steps to Getting Started</h3>
+        <ol>
+          <li><strong>ID bottlenecks</strong> - Pinpoint the most time-consuming or repetitive daily tasks.</li>
+          <li><strong>Start small</strong> - Focus on one bottleneck and find a single AI tool to master for that specific task.</li>
+          <li><strong>Build a habit</strong> - Make a conscious effort to use the chosen tool whenever performing that task until it is a reflex.</li>
+          <li><strong>Evaluate &amp; expand</strong> - Assess impact after 1&ndash;2 weeks: how much time was saved, and did work quality improve?</li>
+        </ol>
+
+        <h2>4. Human-in-the-Loop &amp; Responsible AI</h2>
+        <ul>
+          <li><strong>Human in the loop approach</strong> - A combination of machine and human intelligence to train, use, verify, and refine AI models. Should always be taken when using AI tools.</li>
+          <li><strong>Responsible AI</strong> - The principle of developing and using AI ethically, with the intent of benefiting people and society while avoiding harm. Includes managing limitations like the knowledge cutoff.</li>
+          <li><strong>Knowledge cutoff</strong> - The concept that an AI model is trained at a specific point in time, having no knowledge of events or information after that date.
+            <ul>
+              <li>Well-designed tools recognize limitations and respond accordingly.</li>
+              <li>Tools that do not recognize limitations may <strong>hallucinate</strong> an answer.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2>5. GenAI Assessment for a Task</h2>
+        <p>Three guiding questions to determine if GenAI is up for a task:</p>
+        <ul>
+          <li>Is the task generative?</li>
+          <li>Can the task be iterated on to achieve the best outcome?</li>
+          <li>Are there resources to provide adequate human oversight?</li>
+        </ul>
+
+        <h2>6. Workplace AI Applications</h2>
+        <ul>
+          <li><strong>Spreadsheets:</strong> Use Gemini with Google Sheets or Copilot with Excel; or upload sheets and data to ask platforms for direct analysis.</li>
+          <li><strong>AI notetakers:</strong> Use in Google Meet or Zoom to list priorities/immediate action items and draft follow-up emails.</li>
+        </ul>
+
+        <div style="margin-top: 32px; padding-top: 18px; border-top: 2px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <a href="index.html" class="btn">🏠 Return to Dashboard</a>
+          <a href="folders.html" class="btn">📁 Return to Folders</a>
+          <a href="flashcards-google-ai-essentials-module-2.html" class="btn btn-teal">🗂️ Study Flashcards</a>
+          <a href="learn-google-ai-essentials-module-2.html" class="btn btn-primary">🚀 Enter Learn Mode</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Teach Me Hub • Hosted with GitHub Pages</p>
+  </footer>
+
+</body>
+</html>

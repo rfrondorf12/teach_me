@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards — Google AI Essentials: Module 2</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wra7ena.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Pomodoro Modal Styles */
+    .pomodoro-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(43, 51, 43, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .pomodoro-modal {
+      background: #ffffff;
+      border: 3px solid var(--border-color);
+      border-radius: 14px;
+      padding: 28px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 8px 8px 0 var(--border-color);
+      font-family: inherit;
+      animation: popIn 0.25s ease-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Website Navigation Bar -->
+  <header class="site-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="brand-group">
+        <div class="brand-badge">sage</div>
+      </a>
+
+      <nav>
+        <ul class="nav-links-row">
+          <li><a href="index.html" class="nav-link-btn">🏠 Dashboard</a></li>
+          <li><a href="folders.html" class="nav-link-btn">📁 Subject Folders</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="pill-badge pill-ai">Artificial Intelligence</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <div class="content-container">
+
+      <section class="neo-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span class="pill-badge pill-ai">Artificial Intelligence</span>
+            <h2 style="margin-top: 6px;">Maximizing Productivity with AI Tools — Flashcards</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Google AI Essentials • Module 2 (24 Interactive Cards)</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <a href="note-google-ai-essentials-module-2.html" class="btn btn-primary">📝 Linked Note</a>
+            <a href="learn-google-ai-essentials-module-2.html" class="btn btn-teal">🚀 Learn Mode</a>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold;">
+            <span>Card <span id="card-index-indicator">1</span> of <span id="card-total-indicator">24</span></span>
+            <span>Mastery: <span id="mastery-percent">0%</span></span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Flashcard -->
+        <div class="flashcard-wrapper" onclick="toggleCardFlip()">
+          <div class="flashcard" id="main-flashcard">
+            <div class="card-face card-front">
+              <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span class="pill-badge pill-ai">Question / Term</span>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-sm" onclick="event.stopPropagation(); showCardHint();" title="Get a hint">💡 Get a Hint</button>
+                  <button class="btn btn-sm btn-circle" id="starCardBtn" onclick="event.stopPropagation(); toggleStarCard();" title="Star this card">☆</button>
+                </div>
+              </div>
+              <div class="card-body-text" id="card-front-text">Loading card...</div>
+              <div class="card-hint">👆 Click anywhere or press Space/Enter to flip</div>
+            </div>
+            <div class="card-face card-back">
+              <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span class="pill-badge pill-ai">Answer / Definition</span>
+                <div style="font-size: 0.75rem; font-weight: bold; color: #777;">Click to flip front</div>
+              </div>
+              <div class="card-body-text" id="card-back-text">Loading answer...</div>
+              <div class="card-hint">👆 Click to flip back</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap;">
+          <div class="card-nav-pill">
+            <button onclick="prevCard()" title="Previous Card (Left Arrow)">←</button>
+            <span style="font-size: 0.95rem; min-width: 60px; text-align: center;">
+              <span id="card-nav-curr">1</span> / <span id="card-nav-total">24</span>
+            </span>
+            <button onclick="nextCard()" title="Next Card (Right Arrow)">→</button>
+          </div>
+
+          <button class="btn btn-primary" onclick="toggleCardFlip()">🔄 Flip</button>
+          <button class="btn" onclick="shuffleCards()">🔀 Shuffle</button>
+          <a href="learn-google-ai-essentials-module-2.html" class="btn btn-teal" style="font-weight: 800; border: 2.5px solid var(--border-color); box-shadow: 3px 3px 0 var(--border-color); text-decoration: none; display: inline-flex; align-items: center;">🚀 Enter Learn Mode</a>
+        </div>
+
+        <!-- Mastery Rating Buttons -->
+        <div style="display: flex; justify-content: center; gap: 14px; margin-top: 20px;">
+          <button class="btn" style="border-color: #fbb040;" onclick="markCardStatus('learning')">⏳ Still Learning</button>
+          <button class="btn" style="border-color: #39b54a; background-color: #eafaf1;" onclick="markCardStatus('mastered')">✅ Mastered</button>
+        </div>
+
+        <!-- Studying Progress Section -->
+        <div style="margin-top: 36px; padding: 22px; border: 2.5px solid var(--border-color); border-radius: 14px; background-color: #faf5f1;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="font-size: 1.1rem;">Studying Progress</h3>
+            <span class="pill-badge pill-ai" id="progress-box-pct">0%</span>
+          </div>
+
+          <div class="study-row-pill" style="border-left: 6px solid #e2e8f0;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span>⚪ <strong>New cards</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span id="study-row-new" style="font-size: 1rem; font-weight: 900;">24</span>
+              <button class="btn btn-sm" onclick="filterByStatus('new')">Study</button>
+            </div>
+          </div>
+
+          <div class="study-row-pill" style="border-left: 6px solid #9b51e0;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span>🟣 <strong>Still learning</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span id="study-row-learning" style="font-size: 1rem; font-weight: 900;">0</span>
+              <button class="btn btn-sm" onclick="filterByStatus('learning')">Study</button>
+            </div>
+          </div>
+
+          <div class="study-row-pill" style="border-left: 6px solid #39b54a;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span>🟢 <strong>Mastered</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <span id="study-row-mastered" style="font-size: 1rem; font-weight: 900;">0</span>
+              <button class="btn btn-sm" onclick="filterByStatus('mastered')">Study</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Questions & Answers Reference Table (Context Rule 1) -->
+        <div style="margin-top: 32px; border-top: 2.5px solid var(--border-color); padding-top: 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <h3>Q&amp;A Reference Table (24 Cards)</h3>
+            <span style="font-size: 0.8rem; color: #777;">Click Study on any card to jump</span>
+          </div>
+          <input type="text" id="termSearchInput" class="term-search-box" placeholder="🔍 Search card terms or definitions..." onkeyup="filterTermList()">
+          <div id="termsList" style="margin-top: 14px; max-height: 380px; overflow-y: auto; border: 2.5px solid var(--border-color); border-radius: 10px; background-color: #fff;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div style="margin-top: 28px; padding-top: 18px; border-top: 2px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <a href="index.html" class="btn">🏠 Return to Dashboard</a>
+          <a href="folders.html" class="btn">📁 Return to Folders</a>
+          <a href="note-google-ai-essentials-module-2.html" class="btn btn-primary">📝 View Full Note</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Pomodoro Break Popup Modal -->
+  <div id="pomodoroModal" class="pomodoro-modal-overlay">
+    <div class="pomodoro-modal">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+        <span style="font-size: 1.8rem;">⏰</span>
+        <h3 style="margin: 0; font-size: 1.3rem;">30-Minute Focus Reset</h3>
+      </div>
+      <p style="font-size: 0.95rem; color: #334155; margin-bottom: 16px;">
+        You have been actively studying for 30 minutes! Imra recommends taking a short sensory or movement reset:
+      </p>
+      <ul style="font-size: 0.9rem; color: #1e293b; margin-bottom: 20px; line-height: 1.6;">
+        <li><strong>Option 1:</strong> Put your shoes on.</li>
+        <li><strong>Option 2:</strong> Change to an unconventional study spot.</li>
+        <li><strong>Option 3:</strong> Grab an iced drink.</li>
+        <li><strong>Option 4:</strong> Go on a short walk and return.</li>
+        <li><strong>Option 5:</strong> Write what you want to do in a notebook.</li>
+        <li><strong>Option 7:</strong> Grab a quick snack.</li>
+      </ul>
+      <div style="text-align: right;">
+        <button class="btn btn-primary" onclick="dismissPomodoro()">Dismiss &amp; Reset 30m Timer</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Teach Me Hub • Hosted with GitHub Pages</p>
+  </footer>
+
+  <script>
+    const deckData = [
+      {
+        "q": "What is **Gen AI**?",
+        "a": "AI that can generate new content, like text, images, or other media.",
+        "status": "new",
+        "targetTerm": "Gen AI",
+        "keyTerm": "Gen AI"
+      },
+      {
+        "q": "What are key business use cases for **Gen AI**?",
+        "a": "Crafting company profiles, detailed product descriptions, translating content into multiple languages, summarizing business data for research, and generating images, videos, or code.",
+        "status": "new",
+        "targetTerm": "Gen AI use cases",
+        "keyTerm": "Gen AI"
+      },
+      {
+        "q": "What is a **Stand alone AI tool**?",
+        "a": "AI-powered software that’s designed to be used on its own, accessed online or through an app (ex.: Speeko speech coach).",
+        "status": "new",
+        "targetTerm": "Stand alone AI tool",
+        "keyTerm": "Stand alone AI tool"
+      },
+      {
+        "q": "What is an **Integrated AI feature**?",
+        "a": "A built-in enhancement to a particular piece of software (ex.: Neural Filters in Adobe Photoshop).",
+        "status": "new",
+        "targetTerm": "Integrated AI feature",
+        "keyTerm": "Integrated AI feature"
+      },
+      {
+        "q": "What is a **Custom AI Solution**?",
+        "a": "An application that’s tailor made to solve a specific problem (ex.: detecting sepsis).",
+        "status": "new",
+        "targetTerm": "Custom AI Solution",
+        "keyTerm": "Custom AI Solution"
+      },
+      {
+        "q": "What is an **AI Model**?",
+        "a": "A computer program trained on a set of data to recognize patterns and perform specific tasks (analogy: AI model = engine, AI tool = car).",
+        "status": "new",
+        "targetTerm": "AI Model",
+        "keyTerm": "AI Model"
+      },
+      {
+        "q": "What is an **AI Agent**?",
+        "a": "An AI-powered tool that can autonomously perform tasks with little human oversight (ex.: automatically respond to emails, post content on socials, or monitor computer networks).",
+        "status": "new",
+        "targetTerm": "AI Agent",
+        "keyTerm": "AI Agent"
+      },
+      {
+        "q": "What is Step 1 of the **Training Process** for an AI model?",
+        "a": "<strong>Define the problem to be solved</strong> — AI designers identify the goal (e.g. predicting rain) and consider tool features and limitations before choosing an AI solution.",
+        "status": "new",
+        "targetTerm": "Define the problem",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 2 of the **Training Process** for an AI model?",
+        "a": "<strong>Collect relevant training data</strong> — AI designers gather historical data (e.g. 50 years of rain and non-rain days).",
+        "status": "new",
+        "targetTerm": "Collect relevant training data",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 3 of the **Training Process** for an AI model?",
+        "a": "<strong>Prep the data for training</strong> — Label important features (temp, humidity, air pressure) and separate data into a <strong>training set</strong> and a <strong>validation set</strong>.",
+        "status": "new",
+        "targetTerm": "Prep the data",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 4 of the **Training Process** for an AI model?",
+        "a": "<strong>Train the model</strong> — Apply ML programs to prepared training data to learn patterns indicating the likelihood of outcomes.",
+        "status": "new",
+        "targetTerm": "Train the model",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 5 of the **Training Process** for an AI model?",
+        "a": "<strong>Evaluate the model</strong> — Use the validation set to assess accuracy and reliability, revealing issues like insufficient or biased data.",
+        "status": "new",
+        "targetTerm": "Evaluate the model",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 6 of the **Training Process** for an AI model?",
+        "a": "<strong>Deploy the model</strong> — When satisfied with performance against validation data, the model is deployed inside an AI tool.",
+        "status": "new",
+        "targetTerm": "Deploy the model",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is Step 7 of the **Training Process** (User Interaction)?",
+        "a": "<strong>User Interaction</strong> — Designers continuously collect and monitor user feedback to address new challenges and improve performance.",
+        "status": "new",
+        "targetTerm": "User Interaction",
+        "keyTerm": "Training Process"
+      },
+      {
+        "q": "What is a **Prompt**?",
+        "a": "Text input that provides instructions to the AI model on how to generate output.",
+        "status": "new",
+        "targetTerm": "Prompt",
+        "keyTerm": "Prompt"
+      },
+      {
+        "q": "What technology powers image and media generative tools?",
+        "a": "<strong>Diffusion models</strong>, which generate new content from prompts.",
+        "status": "new",
+        "targetTerm": "Diffusion models",
+        "keyTerm": "Diffusion models"
+      },
+      {
+        "q": "What are the 4 main ways to **integrate AI into workflows**?",
+        "a": "<strong>Native features</strong> (built-in app capabilities), <strong>Browser extensions</strong> (web-wide assistance), <strong>Dedicated applications</strong> (standalone thinking partners), and <strong>Automation platforms</strong> (cross-app automated workflows without code).",
+        "status": "new",
+        "targetTerm": "integrate AI into workflows",
+        "keyTerm": "Workflow Integration"
+      },
+      {
+        "q": "What are the 4 steps for **Getting Started with AI Workflows**?",
+        "a": "1. <strong>ID bottlenecks</strong> (time-consuming/repetitive tasks)<br>2. <strong>Start small</strong> (one tool for one task)<br>3. <strong>Build a habit</strong> (make it a reflex)<br>4. <strong>Evaluate &amp; expand</strong> (assess time saved &amp; quality after 1-2 weeks).",
+        "status": "new",
+        "targetTerm": "Getting started with AI workflows",
+        "keyTerm": "Workflow Integration"
+      },
+      {
+        "q": "What is the **Human-in-the-loop approach**?",
+        "a": "A combination of machine and human intelligence to train, use, verify, and refine AI models.",
+        "status": "new",
+        "targetTerm": "Human-in-the-loop approach",
+        "keyTerm": "Human-in-the-loop approach"
+      },
+      {
+        "q": "What is **Responsible AI**?",
+        "a": "The principle of developing and using AI ethically, with the intent of benefiting people and society while avoiding harm.",
+        "status": "new",
+        "targetTerm": "Responsible AI",
+        "keyTerm": "Responsible AI"
+      },
+      {
+        "q": "What is a **Knowledge Cutoff** in AI models?",
+        "a": "The concept that an AI model is trained at a specific point in time, so it doesn’t have knowledge of events or information after that date.",
+        "status": "new",
+        "targetTerm": "Knowledge cutoff",
+        "keyTerm": "Knowledge cutoff"
+      },
+      {
+        "q": "What happens when an AI tool doesn't recognize its limitations?",
+        "a": "It may <strong>hallucinate</strong> an answer (generating fabricated or incorrect information).",
+        "status": "new",
+        "targetTerm": "hallucinate",
+        "keyTerm": "Hallucination"
+      },
+      {
+        "q": "What are the 3 **guiding questions** to determine if GenAI is suited for a task?",
+        "a": "1. Is the task generative?<br>2. Can the task be iterated on to achieve the best outcome?<br>3. Are there resources to provide adequate human oversight?",
+        "status": "new",
+        "targetTerm": "guiding questions",
+        "keyTerm": "GenAI Task Assessment"
+      },
+      {
+        "q": "How can AI tools be used in spreadsheets and meetings?",
+        "a": "Spreadsheets: Gemini in Google Sheets or Copilot in Excel for analysis/feedback. Meetings: AI notetakers to list action items/priorities and draft follow-up emails.",
+        "status": "new",
+        "targetTerm": "Spreadsheets and meetings",
+        "keyTerm": "Productivity Tools"
+      }
+    ];
+
+    const STORAGE_KEY = "teachme_google_ai_m2_statuses";
+    let currentIndex = 0;
+    let isFlipped = false;
+
+    // Load saved statuses
+    try {
+      const savedStatuses = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      deckData.forEach((c, idx) => {
+        if (savedStatuses[idx]) c.status = savedStatuses[idx];
+      });
+    } catch (e) {}
+
+    function renderCard() {
+      const card = deckData[currentIndex];
+      const cardEl = document.getElementById("main-flashcard");
+      if (isFlipped) {
+        cardEl.classList.remove("flipped");
+        isFlipped = false;
+      }
+
+      setTimeout(() => {
+        document.getElementById("card-front-text").innerHTML = card.q;
+        document.getElementById("card-back-text").innerHTML = card.a;
+
+        const currNum = currentIndex + 1;
+        const totalNum = deckData.length;
+
+        document.getElementById("card-index-indicator").innerText = currNum;
+        document.getElementById("card-total-indicator").innerText = totalNum;
+        document.getElementById("card-nav-curr").innerText = currNum;
+        document.getElementById("card-nav-total").innerText = totalNum;
+
+        const starBtn = document.getElementById("starCardBtn");
+        starBtn.innerText = card.starred ? "★" : "☆";
+        starBtn.style.backgroundColor = card.starred ? "var(--accent-yellow)" : "#fff";
+
+        updateProgress();
+      }, 100);
+    }
+
+    function toggleStarCard() {
+      const card = deckData[currentIndex];
+      card.starred = !card.starred;
+      const starBtn = document.getElementById("starCardBtn");
+      starBtn.innerText = card.starred ? "★" : "☆";
+      starBtn.style.backgroundColor = card.starred ? "var(--accent-yellow)" : "#fff";
+    }
+
+    function showCardHint() {
+      const card = deckData[currentIndex];
+      const stripped = card.a.replace(/<[^>]*>?/gm, "").replace(/\*\*/g, "");
+      const words = stripped.split(" ").slice(0, 5).join(" ");
+      alert("💡 Hint: Starts with -> " + words + "...");
+    }
+
+    function filterByStatus(status) {
+      const idx = deckData.findIndex(c => c.status === status);
+      if (idx !== -1) {
+        jumpToCard(idx);
+      } else {
+        alert("No cards currently marked as " + status + "!");
+      }
+    }
+
+    function toggleCardFlip() {
+      const cardEl = document.getElementById("main-flashcard");
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        cardEl.classList.add("flipped");
+      } else {
+        cardEl.classList.remove("flipped");
+      }
+    }
+
+    function nextCard() {
+      if (currentIndex < deckData.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      renderCard();
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = deckData.length - 1;
+      }
+      renderCard();
+    }
+
+    function shuffleCards() {
+      for (let i = deckData.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deckData[i], deckData[j]] = [deckData[j], deckData[i]];
+      }
+      currentIndex = 0;
+      renderCard();
+      renderTermList();
+    }
+
+    function markCardStatus(status) {
+      deckData[currentIndex].status = status;
+      try {
+        const statuses = {};
+        deckData.forEach((c, i) => { if (c.status) statuses[i] = c.status; });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(statuses));
+      } catch (e) {}
+      updateProgress();
+      nextCard();
+    }
+
+    function updateProgress() {
+      const total = deckData.length;
+      const masteredCount = deckData.filter(c => c.status === "mastered").length;
+      const learningCount = deckData.filter(c => c.status === "learning").length;
+      const newCount = deckData.filter(c => c.status === "new" || !c.status).length;
+
+      document.getElementById("study-row-mastered").innerText = masteredCount;
+      document.getElementById("study-row-learning").innerText = learningCount;
+      document.getElementById("study-row-new").innerText = newCount;
+
+      const pct = Math.round((masteredCount / total) * 100);
+      document.getElementById("mastery-percent").innerText = pct + "%";
+      document.getElementById("progress-box-pct").innerText = pct + "%";
+      document.getElementById("progress-fill").style.width = pct + "%";
+    }
+
+    function renderTermList() {
+      const listContainer = document.getElementById("termsList");
+      listContainer.innerHTML = "";
+      deckData.forEach((card, index) => {
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.justifyContent = "space-between";
+        row.style.alignItems = "center";
+        row.style.padding = "10px 14px";
+        row.style.borderBottom = "1px solid #e2e8f0";
+        row.style.fontSize = "0.9rem";
+
+        let statusBadge = "⚪ New";
+        if (card.status === "mastered") statusBadge = "🟢 Mastered";
+        else if (card.status === "learning") statusBadge = "🟣 Learning";
+
+        row.innerHTML = `
+          <div style="flex: 1; padding-right: 12px;">
+            <strong>Card ${index + 1}: ${card.targetTerm || card.keyTerm}</strong>
+            <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">${card.a.replace(/<[^>]+>/g, '').slice(0, 80)}...</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 0.75rem; font-weight: bold;">${statusBadge}</span>
+            <button class="btn btn-sm" onclick="jumpToCard(${index})">Study</button>
+          </div>
+        `;
+        listContainer.appendChild(row);
+      });
+    }
+
+    function jumpToCard(index) {
+      currentIndex = index;
+      renderCard();
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+    }
+
+    function filterTermList() {
+      const q = document.getElementById("termSearchInput").value.toLowerCase();
+      const rows = document.getElementById("termsList").children;
+      for (let i = 0; i < rows.length; i++) {
+        const text = rows[i].innerText.toLowerCase();
+        rows[i].style.display = text.includes(q) ? "flex" : "none";
+      }
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener("keydown", function(e) {
+      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") return;
+      if (e.key === "ArrowRight") nextCard();
+      else if (e.key === "ArrowLeft") prevCard();
+      else if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        toggleCardFlip();
+      }
+    });
+
+    // Pomodoro 30-Minute Break System
+    const POMODORO_DURATION = 30 * 60 * 1000;
+    function initPomodoro() {
+      if (!sessionStorage.getItem("teachme_pomodoro_start")) {
+        sessionStorage.setItem("teachme_pomodoro_start", Date.now());
+      }
+      setInterval(checkPomodoro, 15000);
+    }
+
+    function checkPomodoro() {
+      const start = parseInt(sessionStorage.getItem("teachme_pomodoro_start") || Date.now());
+      if (Date.now() - start >= POMODORO_DURATION) {
+        document.getElementById("pomodoroModal").style.display = "flex";
+      }
+    }
+
+    function dismissPomodoro() {
+      document.getElementById("pomodoroModal").style.display = "none";
+      sessionStorage.setItem("teachme_pomodoro_start", Date.now());
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+      renderCard();
+      renderTermList();
+      initPomodoro();
+    });
+  </script>
+</body>
+</html>
